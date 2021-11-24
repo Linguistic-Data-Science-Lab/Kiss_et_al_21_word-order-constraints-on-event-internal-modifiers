@@ -1,0 +1,73 @@
+"itemId","CONDITION_NO","ENCODING","ADVERBIAL_TYPE","KEY_CONDITION","ITEM","LIST"
+"t01_1",1,"t01","INSTR","PP>OBJ","Ich habe gehört, dass ein Angestellter über einen Grafikeditor was erstellt hat. Was es war, weiß ich aber nicht.",1
+"t01_2",2,"t01","INSTR","OBJ>PP","Ich habe gehört, dass ein Angestellter was über einen Grafikeditor erstellt hat. Was es war, weiß ich aber nicht.",2
+"t02_1",1,"t02","INSTR","PP>OBJ","Ben hat erzählt, dass ein Geschäftsmann über eine Kreditkarte was abgerechnet hat. Was es war, weiß ich aber nicht.",2
+"t02_2",2,"t02","INSTR","OBJ>PP","Ben hat erzählt, dass ein Geschäftsmann was über eine Kreditkarte abgerechnet hat. Was es war, weiß ich aber nicht.",1
+"t03_1",1,"t03","INSTR","PP>OBJ","Lea hat erzählt, dass ein Hacker über einen Computer was gesteuert hat. Was es war, weiß ich aber nicht.",1
+"t03_2",2,"t03","INSTR","OBJ>PP","Lea hat erzählt, dass ein Hacker was über einen Computer gesteuert hat. Was es war, weiß ich aber nicht.",2
+"t04_1",1,"t04","INSTR","PP>OBJ","Ich habe gehört, dass ein Busfahrer über ein Mikrofon was angekündigt hat. Was es war, weiß ich aber nicht.",2
+"t04_2",2,"t04","INSTR","OBJ>PP","Ich habe gehört, dass ein Busfahrer was über ein Mikrofon angekündigt hat. Was es war, weiß ich aber nicht.",1
+"t05_1",1,"t05","INSTR","PP>OBJ","Ich habe gehört, dass ein Schüler über eine Kamera was beobachtet hat. Was es war, weiß ich aber nicht.",1
+"t05_2",2,"t05","INSTR","OBJ>PP","Ich habe gehört, dass ein Schüler was über eine Kamera beobachtet hat. Was es war, weiß ich aber nicht.",2
+"t06_1",1,"t06","INSTR","PP>OBJ","Max hat erzählt, dass ein Pfleger über eine Pipette was verabreicht hat. Was es war, weiß ich aber nicht.",2
+"t06_2",2,"t06","INSTR","OBJ>PP","Max hat erzählt, dass ein Pfleger was über eine Pipette verabreicht hat. Was es war, weiß ich aber nicht.",1
+"t07_1",1,"t07","INSTR","PP>OBJ","Eva hat erzählt, dass eine Hausfrau ganz ohne ein Spülmittel was gereinigt hat. Was es war, weiß ich aber nicht.",1
+"t07_2",2,"t07","INSTR","OBJ>PP","Eva hat erzählt, dass eine Hausfrau was ganz ohne ein Spülmittel gereinigt hat. Was es war, weiß ich aber nicht.",2
+"t08_1",1,"t08","INSTR","PP>OBJ","Ich habe gehört, dass ein Zimmerer ganz ohne einen Dübel was befestigt hat. Was es war, weiß ich aber nicht.",2
+"t08_2",2,"t08","INSTR","OBJ>PP","Ich habe gehört, dass ein Zimmerer was ganz ohne einen Dübel befestigt hat. Was es war, weiß ich aber nicht.",1
+"t09_1",1,"t09","INSTR","PP>OBJ","Ich habe gehört, dass ein Techniker ganz ohne ein Hilfsmittel was angeschlossen hat. Was es war, weiß ich aber nicht.",1
+"t09_2",2,"t09","INSTR","OBJ>PP","Ich habe gehört, dass ein Techniker was ganz ohne ein Hilfsmittel angeschlossen hat. Was es war, weiß ich aber nicht.",2
+"t10_1",1,"t10","INSTR","PP>OBJ","Pia hat erzählt, dass ein Hausbesitzer ganz ohne einen Schlüssel was geöffnet hat. Was es war, weiß ich aber nicht.",2
+"t10_2",2,"t10","INSTR","OBJ>PP","Pia hat erzählt, dass ein Hausbesitzer was ganz ohne einen Schlüssel geöffnet hat. Was es war, weiß ich aber nicht.",1
+"t11_1",1,"t11","INSTR","PP>OBJ","Ich habe gehört, dass ein Assistent ganz ohne einen Spachtel was aufgetragen hat. Was es war, weiß ich aber nicht.",1
+"t11_2",2,"t11","INSTR","OBJ>PP","Ich habe gehört, dass ein Assistent was ganz ohne einen Spachtel aufgetragen hat. Was es war, weiß ich aber nicht.",2
+"t12_1",1,"t12","INSTR","PP>OBJ","Jan hat erzählt, dass ein Tüftler ganz ohne eine Batterie was betrieben hat. Was es war, weiß ich aber nicht.",2
+"t12_2",2,"t12","INSTR","OBJ>PP","Jan hat erzählt, dass ein Tüftler was ganz ohne eine Batterie betrieben hat. Was es war, weiß ich aber nicht.",1
+"t13_1",1,"t13","COM(O)","PP>OBJ","Lea hat erzählt, dass ein Kleinkrimineller zusammen mit einer Stichwaffe was vergraben hat. Was es war, weiß ich aber nicht.",1
+"t13_2",2,"t13","COM(O)","OBJ>PP","Lea hat erzählt, dass ein Kleinkrimineller was zusammen mit einer Stichwaffe vergraben hat. Was es war, weiß ich aber nicht.",2
+"t14_1",1,"t14","COM(O)","PP>OBJ","Ich habe gehört, dass eine Schuldirektorin zusammen mit einer Einladung was verschickt hat. Was es war, weiß ich aber nicht.",2
+"t14_2",2,"t14","COM(O)","OBJ>PP","Ich habe gehört, dass eine Schuldirektorin was zusammen mit einer Einladung verschickt hat. Was es war, weiß ich aber nicht.",1
+"t15_1",1,"t15","COM(O)","PP>OBJ","Ich habe gehört, dass ein Abgeordneter zusammen mit einem Finanzplan was vorgelegt hat. Was es war, weiß ich aber nicht.",1
+"t15_2",2,"t15","COM(O)","OBJ>PP","Ich habe gehört, dass ein Abgeordneter was zusammen mit einem Finanzplan vorgelegt hat. Was es war, weiß ich aber nicht.",2
+"t16_1",1,"t16","COM(O)","PP>OBJ","Jan hat erzählt, dass ein Verleger zusammen mit einem Foto was veröffentlicht hat. Was es war, weiß ich aber nicht.",2
+"t16_2",2,"t16","COM(O)","OBJ>PP","Jan hat erzählt, dass ein Verleger was zusammen mit einem Foto veröffentlicht hat. Was es war, weiß ich aber nicht.",1
+"t17_1",1,"t17","COM(O)","PP>OBJ","Tim hat erzählt, dass eine Haushälterin zusammen mit einem Handtuch was gewaschen hat. Was es war, weiß ich aber nicht.",1
+"t17_2",2,"t17","COM(O)","OBJ>PP","Tim hat erzählt, dass eine Haushälterin was zusammen mit einem Handtuch gewaschen hat. Was es war, weiß ich aber nicht.",2
+"t18_1",1,"t18","COM(O)","PP>OBJ","Ich habe gehört, dass ein Verleger zusammen mit einem Literaturpreis was verliehen hat. Was es war, weiß ich aber nicht.",2
+"t18_2",2,"t18","COM(O)","OBJ>PP","Ich habe gehört, dass ein Verleger was zusammen mit einem Literaturpreis verliehen hat. Was es war, weiß ich aber nicht.",1
+"t19_1",1,"t19","COM(O)","PP>OBJ","Ich habe gehört, dass eine Küchenhilfe zusammen mit einem Schnitzel was eingefroren hat. Was es war, weiß ich aber nicht.",1
+"t19_2",2,"t19","COM(O)","OBJ>PP","Ich habe gehört, dass eine Küchenhilfe was zusammen mit einem Schnitzel eingefroren hat. Was es war, weiß ich aber nicht.",2
+"t20_1",1,"t20","COM(O)","PP>OBJ","Pia hat erzählt, dass ein Buchhalter zusammen mit einem Überweisungsträger was versandt hat. Was es war, weiß ich aber nicht.",2
+"t20_2",2,"t20","COM(O)","OBJ>PP","Pia hat erzählt, dass ein Buchhalter was zusammen mit einem Überweisungsträger versandt hat. Was es war, weiß ich aber nicht.",1
+"t21_1",1,"t21","COM(O)","PP>OBJ","Ich habe gehört, dass ein Minister zusammen mit einer Urkunde was überreicht hat. Was es war, weiß ich aber nicht.",1
+"t21_2",2,"t21","COM(O)","OBJ>PP","Ich habe gehört, dass ein Minister was zusammen mit einer Urkunde überreicht hat. Was es war, weiß ich aber nicht.",2
+"t22_1",1,"t22","COM(O)","PP>OBJ","Kai hat erzählt, dass ein Händler zusammen mit einem Gemälde was verkauft hat. Was es war, weiß ich aber nicht.",2
+"t22_2",2,"t22","COM(O)","OBJ>PP","Kai hat erzählt, dass ein Händler was zusammen mit einem Gemälde verkauft hat. Was es war, weiß ich aber nicht.",1
+"t23_1",1,"t23","COM(O)","PP>OBJ","Eva hat erzählt, dass ein Kellner zusammen mit einer Süßspeise was serviert hat. Was es war, weiß ich aber nicht.",1
+"t23_2",2,"t23","COM(O)","OBJ>PP","Eva hat erzählt, dass ein Kellner was zusammen mit einer Süßspeise serviert hat. Was es war, weiß ich aber nicht.",2
+"t24_1",1,"t24","COM(O)","PP>OBJ","Ich habe gehört, dass ein Hobbykoch zusammen mit einer Knoblauchzehe was püriert hat. Was es war, weiß ich aber nicht.",2
+"t24_2",2,"t24","COM(O)","OBJ>PP","Ich habe gehört, dass ein Hobbykoch was zusammen mit einer Knoblauchzehe püriert hat. Was es war, weiß ich aber nicht.",1
+"t25_1",1,"t25","ILOC","PP>OBJ","Ich nehme an, dass eine Unternehmerin wohl auf einer Visitenkarte was notiert hat. Was es war, weiß ich aber nicht.",1
+"t25_2",2,"t25","ILOC","OBJ>PP","Ich nehme an, dass eine Unternehmerin wohl was auf einer Visitenkarte notiert hat. Was es war, weiß ich aber nicht.",2
+"t26_1",1,"t26","ILOC","PP>OBJ","Der Parkhüter hat sich aufgeregt, weil ein Spaziergänger wohl auf einem Mauervorsprung was liegengelassen hat. Was es war, weiß ich aber nicht.",2
+"t26_2",2,"t26","ILOC","OBJ>PP","Der Parkhüter hat sich aufgeregt, weil ein Spaziergänger wohl was auf einem Mauervorsprung liegengelassen hat. Was es war, weiß ich aber nicht.",1
+"t27_1",1,"t27","ILOC","PP>OBJ","Isa war beruhigt, weil eine Mitarbeiterin ja auf einem Schreibtisch was abgelegt hat. Was es war, weiß ich aber nicht.",1
+"t27_2",2,"t27","ILOC","OBJ>PP","Isa war beruhigt, weil eine Mitarbeiterin ja was auf einem Schreibtisch abgelegt hat. Was es war, weiß ich aber nicht.",2
+"t28_1",1,"t28","ILOC","PP>OBJ","Der Küchenchef hat sich darüber aufgeregt, dass eine Küchenhilfe einfach auf einem Salatbett was angerichtet hat. Was es war, weiß ich aber nicht.",2
+"t28_2",2,"t28","ILOC","OBJ>PP","Der Küchenchef hat sich darüber aufgeregt, dass eine Küchenhilfe einfach was auf einem Salatbett angerichtet hat. Was es war, weiß ich aber nicht.",1
+"t29_1",1,"t29","ILOC","PP>OBJ","Eva hat mich gefragt, ob ein Page wohl auf einem Gepäckträger was festgeschnallt hat. Was es gewesen sein sollte, weiß ich aber nicht.",1
+"t29_2",2,"t29","ILOC","OBJ>PP","Eva hat mich gefragt, ob ein Page wohl was auf einem Gepäckträger festgeschnallt hat. Was es gewesen sein sollte, weiß ich aber nicht.",2
+"t30_1",1,"t30","ILOC","PP>OBJ","Wir haben alle Hunger bekommen, weil ein Nachbar ja auf einem Rost was gegrillt hat. Was es war, weiß ich aber nicht.",2
+"t30_2",2,"t30","ILOC","OBJ>PP","Wir haben alle Hunger bekommen, weil ein Nachbar ja was auf einem Rost gegrillt hat. Was es war, weiß ich aber nicht.",1
+"t31_1",1,"t31","ILOC","PP>OBJ","Die Ermittler gehen von einem Diebstahl aus, weil ein Verdächtiger doch in einem Rucksack was transportiert hat. Was es war, weiß ich aber nicht.",1
+"t31_2",2,"t31","ILOC","OBJ>PP","Die Ermittler gehen von einem Diebstahl aus, weil ein Verdächtiger doch was in einem Rucksack transportiert hat. Was es war, weiß ich aber nicht.",2
+"t32_1",1,"t32","ILOC","PP>OBJ","Pia hat erzählt, dass ein Fernsehkoch einfach in einer Marinade was eingelegt hat. Was es war, weiß ich aber nicht.",2
+"t32_2",2,"t32","ILOC","OBJ>PP","Pia hat erzählt, dass ein Fernsehkoch einfach was in einer Marinade eingelegt hat. Was es war, weiß ich aber nicht.",1
+"t33_1",1,"t33","ILOC","PP>OBJ","Die Schulleiterin hat mich gefragt, ob eine Internatsschülerin wohl in einer Schublade was versteckt haben könnte. Was es gewesen sein könnte, weiß ich aber nicht.",1
+"t33_2",2,"t33","ILOC","OBJ>PP","Die Schulleiterin hat mich gefragt, ob eine Internatsschülerin wohl was in einer Schublade versteckt haben könnte. Was es gewesen sein könnte, weiß ich aber nicht.",2
+"t34_1",1,"t34","ILOC","PP>OBJ","Pia hat begeistert erzählt, dass ein Einheimischer wohl in einer Brühe was gedünstet hat. Was es war, weiß ich aber nicht.",2
+"t34_2",2,"t34","ILOC","OBJ>PP","Pia hat begeistert erzählt, dass ein Einheimischer wohl was in einer Brühe gedünstet hat. Was es war, weiß ich aber nicht.",1
+"t35_1",1,"t35","ILOC","PP>OBJ","Ein Polizist hat sich erkundigt, ob ein Geschäftsmann denn in einem Schließfach was deponiert habe. Was es sein sollte, weiß ich aber nicht.",1
+"t35_2",2,"t35","ILOC","OBJ>PP","Ein Polizist hat sich erkundigt, ob ein Geschäftsmann denn was in einem Schließfach deponiert habe. Was es sein sollte, weiß ich aber nicht.",2
+"t36_1",1,"t36","ILOC","PP>OBJ","Eva war sauer, weil ein Helfer wohl in einem Kofferraum was verstaut hat. Was es war, weiß ich aber nicht.",2
+"t36_2",2,"t36","ILOC","OBJ>PP","Eva war sauer, weil ein Helfer wohl was in einem Kofferraum verstaut hat. Was es war, weiß ich aber nicht.",1

@@ -1,0 +1,146 @@
+---
+title: "Word order constraints on event-internal modifiers - Experiment 2: Forced Choice study on Thematic Integration"
+author: "Tibor Kiss"
+date: "10.11.2021"
+output:
+  #word_document: default
+  html_document: default
+---
+
+### Analysis of experimental study on thematic integration
+
+This document provides the analysis for the experimental study on thematic integration used in Kiss, Pieper, Börner (2021), final version, including the random slopes on the interaction of main effects.
+
+#### Read in required libraries
+
+```{r libraries, warning=FALSE, message=FALSE}
+library(lme4)
+library(tidyverse)
+library(emmeans)
+
+```
+
+#### Read in data set
+
+
+```{r data set, cache = TRUE}
+exp_int_agentivity.fc.test.data <- 
+  read.csv("../Data/ForcedChoice_test.csv", fileEncoding = "UTF-8")
+
+exp_int_agentivity.fc.test.data$ANSWER <- 
+  factor(exp_int_agentivity.fc.test.data$ANSWER)
+
+exp_int_agentivity.fc.test.data$INTEGRATION <- 
+  factor(exp_int_agentivity.fc.test.data$INTEGRATION)
+
+exp_int_agentivity.fc.test.data$ADVERBIAL_TYPE <- 
+  factor(exp_int_agentivity.fc.test.data$ADVERBIAL_TYPE)
+
+## more illustrative variable names
+exp_int_agentivity.fc.test.data$subjects <- factor(exp_int_agentivity.fc.test.data$workerId)
+exp_int_agentivity.fc.test.data$items <- factor(exp_int_agentivity.fc.test.data$ENCODING)
+
+```
+
+The following table shows an equal distribution of test items to subjects (number of accepted subjects: `r length(table(exp_int_agentivity.fc.test.data$workerId))`).
+
+```{r, echo = FALSE}
+table(exp_int_agentivity.fc.test.data$workerId)
+```
+
+#### Empirical distribution of choices
+
+
+```{r empirical distribution, cache = TRUE, warning = FALSE, message = FALSE, fig.width = 8}
+
+thematic_int.labels <- c("No Thematic Integration", "Thematic Integration")
+names(thematic_int.labels) <- c("no", "yes")
+
+exp_int_agentivity.fc.summary <- 
+  exp_int_agentivity.fc.test.data %>%
+  group_by(ADVERBIAL_TYPE, INTEGRATION, ANSWER) %>%
+  summarise(count = n()) %>%
+  as.data.frame()
+
+ggplot(exp_int_agentivity.fc.summary,
+       aes(x = ANSWER, y = count, fill = ADVERBIAL_TYPE)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Choice", y = "Frequency of Choice") + 
+  facet_wrap(~INTEGRATION, labeller = labeller(INTEGRATION = thematic_int.labels)) +
+  scale_fill_manual("ADVERBIAL_TYPE", values = c("COM(S)" = "black",
+                                                 "INSTR" = "grey"),
+                    labels = c("comitative (subj.)", "instrumental")) +
+  guides(fill=guide_legend(title="Semantic type\nof adverbial")) 
+
+```
+
+The graphical representation of the empirical distribution of choices suggests an interaction between the main effects, as is witnessed by the inversion of the distribution of `COM(S)` under `Thematic Integration == "yes"`. 
+
+#### Random Slope Model with interaction
+
+```{r random slope model, cache = TRUE}
+
+exp_int_agentivity.fc.test.data$INTEGRATION <-
+  relevel(exp_int_agentivity.fc.test.data$INTEGRATION, ref = "no")
+exp_int_agentivity.fc.test.data$ADVERBIAL_TYPE <-
+  relevel(exp_int_agentivity.fc.test.data$ADVERBIAL_TYPE, ref = "INSTR")
+
+
+exp_int_agentivity.fc.glmm <- 
+  glmer(formula = ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + 
+          (1 + ADVERBIAL_TYPE * INTEGRATION | subjects) , 
+        data = exp_int_agentivity.fc.test.data, family = binomial())
+
+options(width = 300)
+summary(exp_int_agentivity.fc.glmm)
+```
+
+We'll have to consider possible spurious convergence warnings, and apply tests from https://rstudio-pubs-static.s3.amazonaws.com/33653_57fc7b8e5d484c909b615d8633c01d51.html, i.e. Ben Bolker's troubleshooting page for spurious convergence errors.
+
+```{r singularity, cache = TRUE}
+
+tt <- getME(exp_int_agentivity.fc.glmm,"theta")
+ll <- getME(exp_int_agentivity.fc.glmm,"lower")
+```
+
+The comparatively high value of `r round(min(tt[ll==0]), 3)` suggests that singularity is not an issue here. Restarting solves the problem here. 
+
+```{r restarting, cache = TRUE}
+ss <- 
+  getME(exp_int_agentivity.fc.glmm,c("theta","fixef"))
+exp_int_agentivity.fc.glmm <- 
+  update(exp_int_agentivity.fc.glmm,
+         start=ss,
+         control=glmerControl(optCtrl=list(maxfun=2e4)))
+
+options(width = 300)
+summary(exp_int_agentivity.fc.glmm)
+
+```
+
+
+#### Model predictions
+
+
+```{r Model predictions, fig.width = 8}
+
+
+predictions <- 
+  emmeans(exp_int_agentivity.fc.glmm, pairwise~ADVERBIAL_TYPE | INTEGRATION, 
+          type = "response") 
+
+## also response useful, now switched to predictor for effects
+## if lp is used, y = emmean, if response is used y = prob
+
+predictions.emm <- data.frame(predictions$emmeans)
+ 
+
+predictions.emm
+
+ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) + 
+  geom_bar(aes(), stat = "identity", fill = "grey", width = 0.3) +
+  facet_wrap(~INTEGRATION, labeller = labeller(INTEGRATION = thematic_int.labels)) +
+  labs(x = "Adverbial Types", y = "Pr(PP>OBJ)")
+```
+
+

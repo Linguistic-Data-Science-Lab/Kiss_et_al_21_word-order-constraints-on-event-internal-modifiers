@@ -1,0 +1,73 @@
+"ENCODING","ANIMACY_INT_ARG","ANIMACY_OBJ","ANIMACY_SUBJ","INT_ARG","MANIPULATION_CONDITION","P","PHENOMENON","SYNTAX_INT_ARG"
+"f01","inanimate","inanimate","animate","Teppich",,"UNTER","trans_CVC","P DETdef N"
+"f02","inanimate","inanimate","animate","Anspruch",,"IN","trans_CVC","P N"
+"f03","inanimate","inanimate","animate","Aussicht",,"IN","trans_CVC","P N"
+"f04","inanimate","inanimate","animate","Punkt",,"AUF","trans_CVC","P DETdef N"
+"f05","inanimate","inanimate","animate","Kenntnis",,"ZU","trans_CVC","P(DETdef) N"
+"f06","inanimate","inanimate","animate","Verkauf",,"ZU","trans_CVC","P(DETdef) N"
+"f07","inanimate","inanimate","animate","Verschluss",,"UNTER","trans_CVC","P N"
+"f08","inanimate","inanimate","animate","Eis",,"AUF","trans_CVC","P N"
+"f09","animate","inanimate","animate","Mann",,"AN","trans_CVC","P DETdef N"
+"f10","inanimate","inanimate","animate","Kopf",,"AUF","trans_CVC","P DETdef N"
+"f11","inanimate","inanimate","animate","Acht",,"AUßER","trans_CVC","P N"
+"f12","inanimate","inanimate","animate","Abschluss",,"ZU","trans_CVC","P(DETdef) N"
+"f13",,"animate","animate",,,,"STM_OBJ",
+"f14",,"inanimate","animate",,,,"STM_OBJ",
+"f15",,"inanimate","animate",,,,"STM_OBJ",
+"f16",,"animate","animate",,,,"STM_OBJ",
+"f17",,"animate","animate",,,,"STM_OBJ",
+"f18",,"animate","animate",,,,"STM_OBJ",
+"f19",,"inanimate","animate",,,,"STM_OBJ",
+"f20",,"inanimate","animate",,,,"STM_OBJ",
+"f21",,"inanimate","animate",,,,"STM_OBJ",
+"f22",,"inanimate","animate",,,,"STM_OBJ",
+"f23",,"animate","animate",,,,"STM_OBJ",
+"f24",,"animate","animate",,,,"STM_OBJ",
+"f25",,"animate","animate",,"PO_ep",,"trans_Q",
+"f26",,"inanimate","animate",,,,"trans_Q",
+"f27",,"animate","animate",,"zusatz",,"trans_Q",
+"f28",,"inanimate","animate",,"SUBJ(VK)",,"trans_Q",
+"f29",,"inanimate","animate",,"zusatz",,"trans_Q",
+"f30",,"animate","animate",,"PO_ep",,"trans_Q",
+"f31",,"animate","animate",,"zusatz",,"trans_Q",
+"f32",,"inanimate","animate",,,,"trans_Q",
+"f33",,"inanimate","animate",,,,"trans_Q",
+"f34",,"animate","animate",,"ADV_ep",,"trans_Q",
+"f35",,"animate","animate",,"ADV_ep",,"trans_Q",
+"f36",,"inanimate","animate",,"zusatz",,"trans_Q",
+"f37",,,"animate",,,,"SUBJ REFL",
+"f38",,,"animate",,"REFL_top",,"SUBJ REFL",
+"f39",,,"animate",,"PP_scrambling",,"SUBJ REFL",
+"f40",,,"animate",,"PP_ep",,"SUBJ REFL",
+"f41",,,"animate",,,,"SUBJ REFL",
+"f42",,,"animate",,"REFL_ep",,"SUBJ REFL",
+"f43",,,"animate",,"PP_scrambling",,"SUBJ REFL",
+"f44",,,"animate",,"PP_ep",,"SUBJ REFL",
+"f45",,,"animate",,,,"SUBJ REFL",
+"f46",,,"animate",,"zusatz",,"SUBJ REFL",
+"f47",,,"animate",,"ADV_scrambling",,"SUBJ REFL",
+"f48",,,"animate",,"zusatz",,"SUBJ REFL",
+"f49","inanimate",,"animate","Ausbildungsberuf","PO_ep","FÜR","SUBJ REFL PO","P DETindef N"
+"f50","animate",,"animate","Max",,"BEI","SUBJ REFL PO","P N"
+"f51","animate",,"animate","Pia","zusatz","MIT","SUBJ REFL PO","P N"
+"f52","inanimate",,"animate","Verhaltensweise","PO_scrambling","FÜR","SUBJ REFL PO","P POSS N"
+"f53","inanimate",,"animate","Umgangston",,"FÜR","SUBJ REFL PO","P POSS N"
+"f54","animate",,"animate","Kommilitone","REFL(VK)","MIT","SUBJ REFL PO","P DETindef N"
+"f55","inanimate",,"animate","Tierschutz","PO_ep","FÜR","SUBJ REFL PO","P DETdef N"
+"f56","inanimate",,"animate","Fachliteratur","PO_scrambling","IN","SUBJ REFL PO","P DETdef N"
+"f57","animate",,"animate","Isa",,"ÜBER","SUBJ REFL PO","P N"
+"f58","inanimate",,"animate","Stadt","PO_scrambling","BEI","SUBJ REFL PO","P DETdef N"
+"f59","inanimate",,"animate","Finanzierungsmöglichkeiten","zusatz","ÜBER","SUBJ REFL PO","P DETdef N"
+"f60","animate",,"animate","Mann","zusatz","IN","SUBJ REFL PO","P DETindef N"
+"f61",,"animate","animate",,"PPAuW_scrambling",,"STM_SUBJ",
+"f62",,"animate","inanimate",,"zusatz",,"STM_SUBJ",
+"f63",,"animate","inanimate",,"ADV_scrambling",,"STM_SUBJ",
+"f64",,"animate","animate",,"OBJ_scrambling",,"STM_SUBJ",
+"f65",,"animate","inanimate",,,,"STM_SUBJ",
+"f66",,"animate","inanimate",,"PP_ep",,"STM_SUBJ",
+"f67",,"animate","animate",,,,"STM_SUBJ",
+"f68",,"animate","animate",,"zusatz",,"STM_SUBJ",
+"f69",,"animate","inanimate",,"ADV_scrambling",,"STM_SUBJ",
+"f70",,"animate","inanimate",,,,"STM_SUBJ",
+"f71",,"animate","animate",,"OBJ(VK)",,"STM_SUBJ",
+"f72",,"animate","animate",,"zusatz",,"STM_SUBJ",

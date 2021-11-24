@@ -1,0 +1,49 @@
+"ENCODING","ANIMACY_INT_ARG","ANIMACY_OBJ","ANIMACY_SUBJ","INT_ARG","P","PHENOMENON","SYNTAX_INT_ARG"
+"f01","inanimate","inanimate","animate","Teppich","UNTER","trans_CVC","P DETdef N"
+"f02","inanimate","inanimate","animate","Anspruch","IN","trans_CVC","P N"
+"f03","inanimate","inanimate","animate","Aussicht","IN","trans_CVC","P N"
+"f04","inanimate","inanimate","animate","Punkt","AUF","trans_CVC","P DETdef N"
+"f05","inanimate","inanimate","animate","Kenntnis","ZU","trans_CVC","P(DETdef) N"
+"f06","inanimate","inanimate","animate","Verkauf","ZU","trans_CVC","P(DETdef) N"
+"f07","inanimate","inanimate","animate","Verschluss","UNTER","trans_CVC","P N"
+"f08","inanimate","inanimate","animate","Eis","AUF","trans_CVC","P N"
+"f09",,"animate","animate",,,"STM_OBJ",
+"f10",,"inanimate","animate",,,"STM_OBJ",
+"f11",,"inanimate","animate",,,"STM_OBJ",
+"f12",,"animate","animate",,,"STM_OBJ",
+"f13",,"animate","animate",,,"STM_OBJ",
+"f14",,"animate","animate",,,"STM_OBJ",
+"f15",,"inanimate","animate",,,"STM_OBJ",
+"f16",,"inanimate","animate",,,"STM_OBJ",
+"f17",,"inanimate","animate",,,"trans_Q",
+"f18",,,"animate",,,"SUBJ REFL",
+"f19","animate",,"animate","Kommilitone","MIT","SUBJ REFL PO","P DETindef N"
+"f20",,"animate","inanimate",,,"STM_SUBJ",
+"f21",,"animate","animate",,,"trans_Q",
+"f22",,"animate","animate",,,"trans_Q",
+"f23",,"inanimate","animate",,,"trans_Q",
+"f24",,"inanimate","animate",,,"trans_Q",
+"f25",,"animate","animate",,,"trans_Q",
+"f26",,"animate","animate",,,"trans_Q",
+"f27",,"inanimate","animate",,,"trans_Q",
+"f28",,,"animate",,,"SUBJ REFL",
+"f29",,,"animate",,,"SUBJ REFL",
+"f30",,,"animate",,,"SUBJ REFL",
+"f31",,,"animate",,,"SUBJ REFL",
+"f32",,,"animate",,,"SUBJ REFL",
+"f33",,,"animate",,,"SUBJ REFL",
+"f34",,,"animate",,,"SUBJ REFL",
+"f35","inanimate",,"animate","Ausbildungsberuf","FÜR","SUBJ REFL PO","P DETindef N"
+"f36","animate",,"animate","Max","BEI","SUBJ REFL PO","P N"
+"f37","animate",,"animate","Pia","MIT","SUBJ REFL PO","P N"
+"f38","inanimate",,"animate","Verhaltensweise","FÜR","SUBJ REFL PO","P POSS N"
+"f39","inanimate",,"animate","Umgangston","FÜR","SUBJ REFL PO","P POSS N"
+"f40","inanimate",,"animate","Tierschutz","FÜR","SUBJ REFL PO","P DETdef N"
+"f41","inanimate",,"animate","Fachliteratur","IN","SUBJ REFL PO","P DETdef N"
+"f42",,"animate","animate",,,"STM_SUBJ",
+"f43",,"animate","inanimate",,,"STM_SUBJ",
+"f44",,"animate","inanimate",,,"STM_SUBJ",
+"f45",,"animate","animate",,,"STM_SUBJ",
+"f46",,"animate","inanimate",,,"STM_SUBJ",
+"f47",,"animate","animate",,,"STM_SUBJ",
+"f48",,"animate","animate",,,"STM_SUBJ",
