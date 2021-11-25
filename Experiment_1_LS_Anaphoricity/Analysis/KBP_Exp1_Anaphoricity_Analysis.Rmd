@@ -3,8 +3,8 @@ title: "Word order constraints on event-internal modifiers - Experiment 1: Liker
 author: "Tibor Kiss"
 date: "09.09.2021"
 output:
-  html_document: default
-  word_document: default
+  github_document:
+    keep_html: TRUE
 ---
 
 ```{r libraries, warning=FALSE, message=FALSE}
@@ -185,6 +185,8 @@ ggplot(exp_anaphoricity_ls.rating.summary, aes(x = ANSWER, y = count)) +
 ```
 
 ```{r}
-read.csv("../Data/stimuli_test_basic.csv", fileEncoding = "UTF-8") %>% filter(ADVERBIAL_TYPE == "COM(O)" & KEY_CONDITION == "PP>OBJ") %>% select(ENCODING, ITEM)%>% knitr::kable()
+read.csv("../Data/stimuli_test_basic.csv", fileEncoding = "UTF-8") %>% 
+  filter(ADVERBIAL_TYPE == "COM(O)" & KEY_CONDITION == "PP>OBJ") %>%
+  select(ENCODING, ITEM) %>% knitr::kable()
 ```
 
