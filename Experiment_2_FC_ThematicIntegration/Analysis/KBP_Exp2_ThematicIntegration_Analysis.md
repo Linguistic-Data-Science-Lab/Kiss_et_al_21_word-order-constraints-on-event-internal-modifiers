@@ -16,7 +16,25 @@ including the random slopes on the interaction of main effects.
 library(lme4)
 library(tidyverse)
 library(emmeans)
+
+show(version)
 ```
+
+    ##                _                           
+    ## platform       x86_64-w64-mingw32          
+    ## arch           x86_64                      
+    ## os             mingw32                     
+    ## system         x86_64, mingw32             
+    ## status                                     
+    ## major          4                           
+    ## minor          1.2                         
+    ## year           2021                        
+    ## month          11                          
+    ## day            01                          
+    ## svn rev        81115                       
+    ## language       R                           
+    ## version.string R version 4.1.2 (2021-11-01)
+    ## nickname       Bird Hippie
 
 #### Read in data set
 
@@ -92,7 +110,7 @@ exp_int_agentivity.fc.glmm <-
         data = exp_int_agentivity.fc.test.data, family = binomial())
 ```
 
-    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.0106935 (tol = 0.001, component 1)
+    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.0106935 (tol = 0.002, component 1)
 
 ``` r
 options(width = 300)
@@ -133,8 +151,8 @@ summary(exp_int_agentivity.fc.glmm)
     ## ADVERBIAL_TYPECOM(S)  -0.540                            
     ## INTEGRATION           -0.672  0.411                     
     ## ADVERBIAL_TYPECOM(S):  0.399 -0.626               -0.728
-    ## convergence code: 0
-    ## Model failed to converge with max|grad| = 0.0106935 (tol = 0.001, component 1)
+    ## optimizer (Nelder_Mead) convergence code: 0 (OK)
+    ## Model failed to converge with max|grad| = 0.0106935 (tol = 0.002, component 1)
 
 We’ll have to consider possible spurious convergence warnings, and apply
 tests from
@@ -156,11 +174,7 @@ exp_int_agentivity.fc.glmm <-
   update(exp_int_agentivity.fc.glmm,
          start=ss,
          control=glmerControl(optCtrl=list(maxfun=2e4)))
-```
 
-    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00107789 (tol = 0.001, component 1)
-
-``` r
 options(width = 300)
 summary(exp_int_agentivity.fc.glmm)
 ```
@@ -200,8 +214,6 @@ summary(exp_int_agentivity.fc.glmm)
     ## ADVERBIAL_TYPECOM(S)  -0.540                            
     ## INTEGRATION           -0.672  0.412                     
     ## ADVERBIAL_TYPECOM(S):  0.399 -0.627               -0.729
-    ## convergence code: 0
-    ## Model failed to converge with max|grad| = 0.00107789 (tol = 0.001, component 1)
 
 #### Model predictions
 

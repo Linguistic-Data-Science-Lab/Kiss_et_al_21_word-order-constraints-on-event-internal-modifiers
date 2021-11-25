@@ -11,6 +11,8 @@ output:
 library(ordinal)
 library(tidyverse)
 library(emmeans)
+
+show(version)
 ```
 
 #### Introduction
@@ -22,7 +24,7 @@ This document describes the necessary analysis of Experiment 1 (LS) for event-in
 
 ```{r data preparation}
 exp_anaphoricity_ls.test.data <- 
-  read.csv("../Data/LikertSkala_test.csv", fileEncoding = "UTF-8")
+  read.csv("../Data/LikertSkala_test.csv", fileEncoding = "UTF-8", stringsAsFactors = TRUE)
 
 exp_anaphoricity_ls.test.data$CONDITION_NO <- factor(exp_anaphoricity_ls.test.data$CONDITION_NO)
 
@@ -72,7 +74,7 @@ ggplot(exp_anaphoricity_ls.test.summary, aes(x = ANSWER, y = count)) +
 
 #### Definition of model
 
-```{r model, cache = TRUE}
+```{r model, cache = TRUE, warning=FALSE}
 
 exp_anaphoricity_ls.test.data$ADVERBIAL_TYPE <-
   relevel(factor(exp_anaphoricity_ls.test.data$ADVERBIAL_TYPE), ref = "INSTR")
@@ -137,7 +139,7 @@ ggplot(exp_anaphoricity_ls.pred.long, aes(x = ANSWER, y = rating)) +
 
 #### Model with interaction
 
-```{r model with interaction, cache = TRUE}
+```{r model with interaction, cache = TRUE, warning=FALSE}
 
 options(width = 300)
 
@@ -169,7 +171,7 @@ Analysis of deviance reveals that the model with interaction does not significan
 
 #### Test items in disfavored positions with high ratings 
 
-```{r}
+```{r warning=FALSE, message = FALSE}
 
 exp_anaphoricity_ls.rating.summary <- 
   subset(exp_anaphoricity_ls.test.data, 

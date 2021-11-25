@@ -8,7 +8,25 @@ Tibor Kiss
 library(ordinal)
 library(tidyverse)
 library(emmeans)
+
+show(version)
 ```
+
+    ##                _                           
+    ## platform       x86_64-w64-mingw32          
+    ## arch           x86_64                      
+    ## os             mingw32                     
+    ## system         x86_64, mingw32             
+    ## status                                     
+    ## major          4                           
+    ## minor          1.2                         
+    ## year           2021                        
+    ## month          11                          
+    ## day            01                          
+    ## svn rev        81115                       
+    ## language       R                           
+    ## version.string R version 4.1.2 (2021-11-01)
+    ## nickname       Bird Hippie
 
 #### Introduction
 
@@ -21,7 +39,7 @@ two models in terms of fit is just above 0.05.
 
 ``` r
 exp_anaphoricity_ls.test.data <- 
-  read.csv("../Data/LikertSkala_test.csv", fileEncoding = "UTF-8")
+  read.csv("../Data/LikertSkala_test.csv", fileEncoding = "UTF-8", stringsAsFactors = TRUE)
 
 exp_anaphoricity_ls.test.data$CONDITION_NO <- factor(exp_anaphoricity_ls.test.data$CONDITION_NO)
 
@@ -50,7 +68,7 @@ exp_anaphoricity_ls.dist.summary %>% filter(Freq < 18)
 ```
 
     ## [1] workerId     CONDITION_NO Freq        
-    ## <0 rows> (or 0-length row.names)
+    ## <0 Zeilen> (oder row.names mit Länge 0)
 
 Each participant has seen 18 test items per condition, since no
 participant has seen less than 18 test items per condition (8-&gt;).
@@ -250,11 +268,7 @@ exp_anaphoricity_ls.rating.summary <-
   group_by(ENCODING, ANSWER) %>% 
   summarise(count = n()) %>%
   as.data.frame()
-```
 
-    ## `summarise()` regrouping output by 'ENCODING' (override with `.groups` argument)
-
-``` r
 ggplot(exp_anaphoricity_ls.rating.summary, aes(x = ANSWER, y = count)) +
   geom_bar(stat = "identity") +
   facet_wrap(~ENCODING) +

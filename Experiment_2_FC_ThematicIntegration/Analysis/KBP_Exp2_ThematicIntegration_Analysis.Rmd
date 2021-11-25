@@ -18,6 +18,7 @@ library(lme4)
 library(tidyverse)
 library(emmeans)
 
+show(version)
 ```
 
 #### Read in data set
