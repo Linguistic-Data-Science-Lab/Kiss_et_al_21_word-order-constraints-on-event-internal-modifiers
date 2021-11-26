@@ -1,4 +1,4 @@
-# Kiss_et_al_21_word-order-constraints-on-event-internal-modifiers
+# Word order constraints on event-internal modifiers
 
 This repository contains the supplementary data of both experimental studies described in Kiss, Pieper, Börner (2021).
 There is a folder for each of the two experiments, each containing an independent ReadMe file. 
