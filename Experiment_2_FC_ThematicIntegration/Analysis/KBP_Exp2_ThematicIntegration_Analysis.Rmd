@@ -79,6 +79,8 @@ The graphical representation of the empirical distribution of choices suggests a
 
 #### Random Slope Model with interaction
 
+Please notice that the random structure does not assume intercepts, because we want to obtain information on by-subject variance (i.e. workerId) for each condition.
+
 ```{r random slope model, cache = TRUE}
 
 exp_int_agentivity.fc.test.data$INTEGRATION <-
@@ -89,7 +91,7 @@ exp_int_agentivity.fc.test.data$ADVERBIAL_TYPE <-
 
 exp_int_agentivity.fc.glmm <- 
   glmer(formula = ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + 
-          (1 + ADVERBIAL_TYPE * INTEGRATION | subjects) , 
+          (0 + ADVERBIAL_TYPE * INTEGRATION | subjects) , 
         data = exp_int_agentivity.fc.test.data, family = binomial())
 
 options(width = 300)
@@ -119,6 +121,7 @@ summary(exp_int_agentivity.fc.glmm)
 
 ```
 
+It is an interesting fact that the by-subject variation for `COM(S):INTEGRATION yes` is much lower than for the other conditions, which appears to confirm the preference for PP > OBJ in this condition.
 
 #### Model predictions
 
@@ -127,7 +130,7 @@ summary(exp_int_agentivity.fc.glmm)
 
 
 predictions <- 
-  emmeans(exp_int_agentivity.fc.glmm, pairwise~ADVERBIAL_TYPE | INTEGRATION, 
+  emmeans(exp_int_agentivity.fc.glmm, pairwise~ADVERBIAL_TYPE * INTEGRATION, 
           type = "response") 
 
 ## also response useful, now switched to predictor for effects

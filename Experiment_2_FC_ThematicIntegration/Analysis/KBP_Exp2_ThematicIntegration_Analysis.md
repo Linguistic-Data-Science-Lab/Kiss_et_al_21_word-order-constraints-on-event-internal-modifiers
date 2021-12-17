@@ -21,10 +21,10 @@ show(version)
 ```
 
     ##                _                           
-    ## platform       x86_64-w64-mingw32          
+    ## platform       x86_64-apple-darwin17.0     
     ## arch           x86_64                      
-    ## os             mingw32                     
-    ## system         x86_64, mingw32             
+    ## os             darwin17.0                  
+    ## system         x86_64, darwin17.0          
     ## status                                     
     ## major          4                           
     ## minor          1.2                         
@@ -97,6 +97,10 @@ inversion of the distribution of `COM(S)` under
 
 #### Random Slope Model with interaction
 
+Please notice that the random structure does not assume intercepts,
+because we want to obtain information on by-subject variance
+(i.e. workerId) for each condition.
+
 ``` r
 exp_int_agentivity.fc.test.data$INTEGRATION <-
   relevel(exp_int_agentivity.fc.test.data$INTEGRATION, ref = "no")
@@ -106,11 +110,11 @@ exp_int_agentivity.fc.test.data$ADVERBIAL_TYPE <-
 
 exp_int_agentivity.fc.glmm <- 
   glmer(formula = ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + 
-          (1 + ADVERBIAL_TYPE * INTEGRATION | subjects) , 
+          (0 + ADVERBIAL_TYPE * INTEGRATION | subjects) , 
         data = exp_int_agentivity.fc.test.data, family = binomial())
 ```
 
-    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.0106935 (tol = 0.002, component 1)
+    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00840603 (tol = 0.002, component 1)
 
 ``` r
 options(width = 300)
@@ -119,7 +123,7 @@ summary(exp_int_agentivity.fc.glmm)
 
     ## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
     ##  Family: binomial  ( logit )
-    ## Formula: ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + (1 + ADVERBIAL_TYPE *      INTEGRATION | subjects)
+    ## Formula: ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + (0 + ADVERBIAL_TYPE *      INTEGRATION | subjects)
     ##    Data: exp_int_agentivity.fc.test.data
     ## 
     ##      AIC      BIC   logLik deviance df.resid 
@@ -127,32 +131,32 @@ summary(exp_int_agentivity.fc.glmm)
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.2515 -0.6511 -0.3624  0.7384  2.5674 
+    ## -2.2514 -0.6507 -0.3624  0.7385  2.5670 
     ## 
     ## Random effects:
     ##  Groups   Name                                Variance Std.Dev. Corr             
-    ##  subjects (Intercept)                         1.6691   1.292                     
-    ##           ADVERBIAL_TYPECOM(S)                0.2266   0.476    -0.43            
-    ##           INTEGRATIONyes                      1.1509   1.073    -0.75  0.19      
-    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2333   0.483     0.55 -0.10 -0.97
+    ##  subjects ADVERBIAL_TYPEINSTR                 1.6633   1.290                     
+    ##           ADVERBIAL_TYPECOM(S)                1.3601   1.166     0.93            
+    ##           INTEGRATIONyes                      1.1456   1.070    -0.75 -0.75      
+    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2314   0.481     0.55  0.57 -0.97
     ## Number of obs: 792, groups:  subjects, 33
     ## 
     ## Fixed effects:
     ##                                     Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)                          -0.6317     0.2864  -2.206   0.0274 *  
-    ## ADVERBIAL_TYPECOM(S)                  0.4087     0.2525   1.619   0.1055    
-    ## INTEGRATIONyes                       -0.6283     0.3266  -1.924   0.0544 .  
-    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6501     0.3632   4.543 5.54e-06 ***
+    ## (Intercept)                          -0.6305     0.2860  -2.204   0.0275 *  
+    ## ADVERBIAL_TYPECOM(S)                  0.4086     0.2524   1.619   0.1054    
+    ## INTEGRATIONyes                       -0.6296     0.3263  -1.930   0.0537 .  
+    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6502     0.3631   4.545 5.49e-06 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##                       (Intr) ADVERBIAL_TYPECOM(S) INTEGR
-    ## ADVERBIAL_TYPECOM(S)  -0.540                            
-    ## INTEGRATION           -0.672  0.411                     
-    ## ADVERBIAL_TYPECOM(S):  0.399 -0.626               -0.728
+    ## ADVERBIAL_TYPECOM(S)  -0.539                            
+    ## INTEGRATION           -0.672  0.410                     
+    ## ADVERBIAL_TYPECOM(S):  0.398 -0.626               -0.728
     ## optimizer (Nelder_Mead) convergence code: 0 (OK)
-    ## Model failed to converge with max|grad| = 0.0106935 (tol = 0.002, component 1)
+    ## Model failed to converge with max|grad| = 0.00840603 (tol = 0.002, component 1)
 
 We’ll have to consider possible spurious convergence warnings, and apply
 tests from
@@ -164,7 +168,7 @@ tt <- getME(exp_int_agentivity.fc.glmm,"theta")
 ll <- getME(exp_int_agentivity.fc.glmm,"lower")
 ```
 
-The comparatively high value of 0.009 suggests that singularity is not
+The comparatively high value of 0.004 suggests that singularity is not
 an issue here. Restarting solves the problem here.
 
 ``` r
@@ -181,7 +185,7 @@ summary(exp_int_agentivity.fc.glmm)
 
     ## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
     ##  Family: binomial  ( logit )
-    ## Formula: ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + (1 + ADVERBIAL_TYPE *      INTEGRATION | subjects)
+    ## Formula: ANSWER ~ ADVERBIAL_TYPE * INTEGRATION + (0 + ADVERBIAL_TYPE *      INTEGRATION | subjects)
     ##    Data: exp_int_agentivity.fc.test.data
     ## Control: glmerControl(optCtrl = list(maxfun = 20000))
     ## 
@@ -190,22 +194,22 @@ summary(exp_int_agentivity.fc.glmm)
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.2511 -0.6510 -0.3625  0.7382  2.5671 
+    ## -2.2511 -0.6509 -0.3624  0.7382  2.5673 
     ## 
     ## Random effects:
     ##  Groups   Name                                Variance Std.Dev. Corr             
-    ##  subjects (Intercept)                         1.6709   1.2926                    
-    ##           ADVERBIAL_TYPECOM(S)                0.2273   0.4767   -0.44            
-    ##           INTEGRATIONyes                      1.1526   1.0736   -0.75  0.20      
-    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2354   0.4852    0.55 -0.10 -0.97
+    ##  subjects ADVERBIAL_TYPEINSTR                 1.6702   1.2924                    
+    ##           ADVERBIAL_TYPECOM(S)                1.3606   1.1664    0.93            
+    ##           INTEGRATIONyes                      1.1521   1.0734   -0.75 -0.75      
+    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2353   0.4851    0.55  0.57 -0.97
     ## Number of obs: 792, groups:  subjects, 33
     ## 
     ## Fixed effects:
     ##                                     Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)                          -0.6315     0.2865  -2.204   0.0275 *  
-    ## ADVERBIAL_TYPECOM(S)                  0.4090     0.2526   1.619   0.1054    
-    ## INTEGRATIONyes                       -0.6284     0.3266  -1.924   0.0544 .  
-    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6495     0.3633   4.541  5.6e-06 ***
+    ## (Intercept)                          -0.6312     0.2865  -2.203   0.0276 *  
+    ## ADVERBIAL_TYPECOM(S)                  0.4088     0.2525   1.619   0.1055    
+    ## INTEGRATIONyes                       -0.6287     0.3266  -1.925   0.0542 .  
+    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6498     0.3632   4.542 5.58e-06 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
@@ -215,11 +219,15 @@ summary(exp_int_agentivity.fc.glmm)
     ## INTEGRATION           -0.672  0.412                     
     ## ADVERBIAL_TYPECOM(S):  0.399 -0.627               -0.729
 
+It is an interesting fact that the by-subject variation for
+`COM(S):INTEGRATION yes` is much lower than for the other conditions,
+which appears to confirm the preference for PP \> OBJ in this condition.
+
 #### Model predictions
 
 ``` r
 predictions <- 
-  emmeans(exp_int_agentivity.fc.glmm, pairwise~ADVERBIAL_TYPE | INTEGRATION, 
+  emmeans(exp_int_agentivity.fc.glmm, pairwise~ADVERBIAL_TYPE * INTEGRATION, 
           type = "response") 
 
 ## also response useful, now switched to predictor for effects
@@ -232,10 +240,10 @@ predictions.emm
 ```
 
     ##   ADVERBIAL_TYPE INTEGRATION      prob         SE  df asymp.LCL asymp.UCL
-    ## 1          INSTR          no 0.3471788 0.06493773 Inf 0.2327183 0.4825318
-    ## 2         COM(S)          no 0.4446057 0.06424280 Inf 0.3246675 0.5713650
-    ## 3          INSTR         yes 0.2210003 0.04319004 Inf 0.1478520 0.3168805
-    ## 4         COM(S)         yes 0.6896843 0.04469537 Inf 0.5961214 0.7699374
+    ## 1          INSTR          no 0.3472370 0.06492990 Inf 0.2327841 0.4825680
+    ## 2         COM(S)          no 0.4446339 0.06423847 Inf 0.3247015 0.5713830
+    ## 3          INSTR         yes 0.2209868 0.04319224 Inf 0.1478363 0.3168736
+    ## 4         COM(S)         yes 0.6896952 0.04469501 Inf 0.5961326 0.7699473
 
 ``` r
 ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) + 
