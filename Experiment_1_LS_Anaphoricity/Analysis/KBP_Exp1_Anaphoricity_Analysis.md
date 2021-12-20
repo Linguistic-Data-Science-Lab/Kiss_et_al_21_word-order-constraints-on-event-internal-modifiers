@@ -99,8 +99,8 @@ exp_anaphoricity_ls.test.data$POSITION <-
 
 exp_anaphoricity_ls.clmm <- 
   clmm(FCT_ANSWER  ~ ADVERBIAL_TYPE + POSITION + 
-         (0 + ADVERBIAL_TYPE*POSITION| subjects) + 
-         (0 + ADVERBIAL_TYPE*POSITION| items), 
+         (0 + ADVERBIAL_TYPE*POSITION| subjects) +
+         (0 + POSITION | items), 
        exp_anaphoricity_ls.test.data)
 
 summary(exp_anaphoricity_ls.clmm)
@@ -109,61 +109,55 @@ summary(exp_anaphoricity_ls.clmm)
     ## Cumulative Link Mixed Model fitted with the Laplace approximation
     ## 
     ## formula: FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE *  
-    ##     POSITION | subjects) + (0 + ADVERBIAL_TYPE * POSITION | items)
+    ##     POSITION | subjects) + (0 + POSITION | items)
     ## data:    exp_anaphoricity_ls.test.data
     ## 
-    ##  link  threshold nobs logLik   AIC     niter       max.grad cond.H
-    ##  logit flexible  1836 -2100.22 4298.44 9479(47723) 2.06e-03 NaN   
+    ##  link  threshold nobs logLik   AIC     niter       max.grad cond.H 
+    ##  logit flexible  1836 -2107.63 4277.27 5104(26313) 2.57e-03 4.5e+02
     ## 
     ## Random effects:
     ##  Groups   Name                                Variance Std.Dev. Corr         
-    ##  subjects ADVERBIAL_TYPEINSTR                 2.3324   1.5272                
-    ##           ADVERBIAL_TYPECOM(O)                2.3783   1.5422    0.749       
-    ##           ADVERBIAL_TYPEILOC                  2.1142   1.4540    0.897  0.568
-    ##           POSITIONOBJ>PP                      0.8985   0.9479   -0.046 -0.088
-    ##           ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP 0.7036   0.8388    0.197 -0.371
-    ##           ADVERBIAL_TYPEILOC:POSITIONOBJ>PP   0.6641   0.8149   -0.448  0.061
-    ##  items    ADVERBIAL_TYPEINSTR                 0.1707   0.4131                
-    ##           ADVERBIAL_TYPECOM(O)                0.3068   0.5539   -0.342       
-    ##           ADVERBIAL_TYPEILOC                  1.1923   1.0919   -0.097  0.064
-    ##           POSITIONOBJ>PP                      0.3050   0.5522    1.000 -0.342
-    ##           ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP 0.2487   0.4987   -0.691 -0.376
-    ##           ADVERBIAL_TYPEILOC:POSITIONOBJ>PP   0.2859   0.5347   -0.397  0.260
+    ##  subjects ADVERBIAL_TYPEINSTR                 2.3987   1.5488                
+    ##           ADVERBIAL_TYPECOM(O)                2.3873   1.5451    0.748       
+    ##           ADVERBIAL_TYPEILOC                  2.1802   1.4766    0.898  0.561
+    ##           POSITIONOBJ>PP                      0.8843   0.9404   -0.078 -0.109
+    ##           ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP 0.7158   0.8460    0.240 -0.334
+    ##           ADVERBIAL_TYPEILOC:POSITIONOBJ>PP   0.6667   0.8165   -0.430  0.083
+    ##  items    POSITIONPP>OBJ                      0.5416   0.7359                
+    ##           POSITIONOBJ>PP                      0.6100   0.7810   0.781        
     ##                       
     ##                       
     ##                       
     ##                       
-    ##  -0.057               
-    ##   0.441 -0.189        
-    ##  -0.603 -0.407 -0.755 
+    ##  -0.088               
+    ##   0.487 -0.178        
+    ##  -0.595 -0.386 -0.790 
     ##                       
     ##                       
-    ##                       
-    ##  -0.097               
-    ##   0.129 -0.691        
-    ##  -0.450 -0.397  0.220 
     ## Number of groups:  subjects 51,  items 36 
     ## 
     ## Coefficients:
-    ##                      Estimate Std. Error z value Pr(>|z|)
-    ## ADVERBIAL_TYPECOM(O)   -1.069        NaN     NaN      NaN
-    ## ADVERBIAL_TYPEILOC     -1.168        NaN     NaN      NaN
-    ## POSITIONOBJ>PP          1.197        NaN     NaN      NaN
+    ##                      Estimate Std. Error z value Pr(>|z|)    
+    ## ADVERBIAL_TYPECOM(O)  -0.9571     0.3479  -2.751  0.00594 ** 
+    ## ADVERBIAL_TYPEILOC    -1.0353     0.3396  -3.049  0.00230 ** 
+    ## POSITIONOBJ>PP         1.1916     0.1738   6.856 7.08e-12 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Threshold coefficients:
     ##     Estimate Std. Error z value
-    ## 1|2   -4.693        NaN     NaN
-    ## 2|3   -2.212        NaN     NaN
-    ## 3|4   -1.526        NaN     NaN
-    ## 4|5    1.594        NaN     NaN
+    ## 1|2  -4.5321     0.3557 -12.740
+    ## 2|3  -2.0566     0.3301  -6.231
+    ## 3|4  -1.3708     0.3278  -4.182
+    ## 4|5   1.7521     0.3286   5.333
 
 #### Effects in the model w/o interaction
 
 Since we have chosen INSTR as reference value, the values for ILOC and
 COM(O) both show significance, but it should be kept in mind that they
 are practically identical. The general effect of `POSITION == OBJ > PP`
-is 3.31. The effects for COM(O) and ILOC in `POSITION == PP > OBJ` are
-0.343, and 0.311, respectively.
+is 3.292. The effects for COM(O) and ILOC in `POSITION == PP > OBJ` are
+0.384, and 0.355, respectively.
 
 #### Model predictions (without interaction)
 
@@ -263,21 +257,21 @@ show(comp)
 
     ## Likelihood ratio tests of cumulative link models:
     ##  
-    ##                           formula:                                                                                                                     
-    ## exp_anaphoricity_ls.clmm2 FCT_ANSWER ~ ADVERBIAL_TYPE * POSITION + (1 + POSITION | subjects) + (1 + POSITION | items)                                  
-    ## exp_anaphoricity_ls.clmm  FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + ADVERBIAL_TYPE * POSITION | items)
+    ##                           formula:                                                                                                    
+    ## exp_anaphoricity_ls.clmm2 FCT_ANSWER ~ ADVERBIAL_TYPE * POSITION + (1 + POSITION | subjects) + (1 + POSITION | items)                 
+    ## exp_anaphoricity_ls.clmm  FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + POSITION | items)
     ##                           link: threshold:
     ## exp_anaphoricity_ls.clmm2 logit flexible  
     ## exp_anaphoricity_ls.clmm  logit flexible  
     ## 
-    ##                           no.par    AIC  logLik LR.stat df Pr(>Chisq)  
-    ## exp_anaphoricity_ls.clmm2     15 4281.3 -2125.7                        
-    ## exp_anaphoricity_ls.clmm      49 4298.4 -2100.2  50.875 34     0.0315 *
+    ##                           no.par    AIC  logLik LR.stat df Pr(>Chisq)   
+    ## exp_anaphoricity_ls.clmm2     15 4281.3 -2125.7                         
+    ## exp_anaphoricity_ls.clmm      31 4277.3 -2107.6  36.047 16    0.00285 **
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Analysis of deviance reveals that the model with interaction does not
-significantly reduce the deviance, but the value of 0.031 is of course
+significantly reduce the deviance, but the value of 0.003 is of course
 pretty close to the famous threshold of P = 0.05
 
 #### Test items in disfavored positions with high ratings
