@@ -83,8 +83,8 @@ exp_anaphoricity_ls.test.data$POSITION <-
 
 exp_anaphoricity_ls.clmm <- 
   clmm(FCT_ANSWER  ~ ADVERBIAL_TYPE + POSITION + 
-         (1 + POSITION| subjects) + 
-         (1 + POSITION| items), 
+         (0 + POSITION| subjects) + 
+         (0 + POSITION| items), 
        exp_anaphoricity_ls.test.data)
 
 summary(exp_anaphoricity_ls.clmm)

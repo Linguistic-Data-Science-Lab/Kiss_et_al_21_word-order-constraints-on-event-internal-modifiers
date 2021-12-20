@@ -13,10 +13,10 @@ show(version)
 ```
 
     ##                _                           
-    ## platform       x86_64-w64-mingw32          
+    ## platform       x86_64-apple-darwin17.0     
     ## arch           x86_64                      
-    ## os             mingw32                     
-    ## system         x86_64, mingw32             
+    ## os             darwin17.0                  
+    ## system         x86_64, darwin17.0          
     ## status                                     
     ## major          4                           
     ## minor          1.2                         
@@ -71,7 +71,7 @@ exp_anaphoricity_ls.dist.summary %>% filter(Freq < 18)
     ## <0 Zeilen> (oder row.names mit Länge 0)
 
 Each participant has seen 18 test items per condition, since no
-participant has seen less than 18 test items per condition (8-&gt;).
+participant has seen less than 18 test items per condition (8->).
 
 ``` r
 exp_anaphoricity_ls.test.summary <- 
@@ -99,8 +99,8 @@ exp_anaphoricity_ls.test.data$POSITION <-
 
 exp_anaphoricity_ls.clmm <- 
   clmm(FCT_ANSWER  ~ ADVERBIAL_TYPE + POSITION + 
-         (1 + POSITION| subjects) + 
-         (1 + POSITION| items), 
+         (0 + ADVERBIAL_TYPE*POSITION| subjects) + 
+         (0 + ADVERBIAL_TYPE*POSITION| items), 
        exp_anaphoricity_ls.test.data)
 
 summary(exp_anaphoricity_ls.clmm)
@@ -108,43 +108,62 @@ summary(exp_anaphoricity_ls.clmm)
 
     ## Cumulative Link Mixed Model fitted with the Laplace approximation
     ## 
-    ## formula: FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (1 + POSITION | subjects) +  
-    ##     (1 + POSITION | items)
+    ## formula: FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE *  
+    ##     POSITION | subjects) + (0 + ADVERBIAL_TYPE * POSITION | items)
     ## data:    exp_anaphoricity_ls.test.data
     ## 
-    ##  link  threshold nobs logLik   AIC     niter      max.grad cond.H 
-    ##  logit flexible  1836 -2127.44 4280.88 1213(6227) 5.63e-03 4.0e+02
+    ##  link  threshold nobs logLik   AIC     niter       max.grad cond.H
+    ##  logit flexible  1836 -2100.22 4298.44 9479(47723) 2.06e-03 NaN   
     ## 
     ## Random effects:
-    ##  Groups   Name           Variance Std.Dev. Corr   
-    ##  subjects (Intercept)    1.7594   1.3264          
-    ##           POSITIONOBJ>PP 0.5281   0.7267   -0.237 
-    ##  items    (Intercept)    0.5085   0.7131          
-    ##           POSITIONOBJ>PP 0.2134   0.4619   -0.282 
+    ##  Groups   Name                                Variance Std.Dev. Corr         
+    ##  subjects ADVERBIAL_TYPEINSTR                 2.3324   1.5272                
+    ##           ADVERBIAL_TYPECOM(O)                2.3783   1.5422    0.749       
+    ##           ADVERBIAL_TYPEILOC                  2.1142   1.4540    0.897  0.568
+    ##           POSITIONOBJ>PP                      0.8985   0.9479   -0.046 -0.088
+    ##           ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP 0.7036   0.8388    0.197 -0.371
+    ##           ADVERBIAL_TYPEILOC:POSITIONOBJ>PP   0.6641   0.8149   -0.448  0.061
+    ##  items    ADVERBIAL_TYPEINSTR                 0.1707   0.4131                
+    ##           ADVERBIAL_TYPECOM(O)                0.3068   0.5539   -0.342       
+    ##           ADVERBIAL_TYPEILOC                  1.1923   1.0919   -0.097  0.064
+    ##           POSITIONOBJ>PP                      0.3050   0.5522    1.000 -0.342
+    ##           ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP 0.2487   0.4987   -0.691 -0.376
+    ##           ADVERBIAL_TYPEILOC:POSITIONOBJ>PP   0.2859   0.5347   -0.397  0.260
+    ##                       
+    ##                       
+    ##                       
+    ##                       
+    ##  -0.057               
+    ##   0.441 -0.189        
+    ##  -0.603 -0.407 -0.755 
+    ##                       
+    ##                       
+    ##                       
+    ##  -0.097               
+    ##   0.129 -0.691        
+    ##  -0.450 -0.397  0.220 
     ## Number of groups:  subjects 51,  items 36 
     ## 
     ## Coefficients:
-    ##                      Estimate Std. Error z value Pr(>|z|)    
-    ## ADVERBIAL_TYPECOM(O)  -0.8945     0.3184  -2.810  0.00496 ** 
-    ## ADVERBIAL_TYPEILOC    -0.8909     0.3115  -2.860  0.00424 ** 
-    ## POSITIONOBJ>PP         1.1104     0.1612   6.887 5.69e-12 ***
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ##                      Estimate Std. Error z value Pr(>|z|)
+    ## ADVERBIAL_TYPECOM(O)   -1.069        NaN     NaN      NaN
+    ## ADVERBIAL_TYPEILOC     -1.168        NaN     NaN      NaN
+    ## POSITIONOBJ>PP          1.197        NaN     NaN      NaN
     ## 
     ## Threshold coefficients:
     ##     Estimate Std. Error z value
-    ## 1|2  -4.2844     0.3232 -13.256
-    ## 2|3  -1.9263     0.3004  -6.412
-    ## 3|4  -1.2750     0.2985  -4.271
-    ## 4|5   1.7009     0.2988   5.693
+    ## 1|2   -4.693        NaN     NaN
+    ## 2|3   -2.212        NaN     NaN
+    ## 3|4   -1.526        NaN     NaN
+    ## 4|5    1.594        NaN     NaN
 
 #### Effects in the model w/o interaction
 
 Since we have chosen INSTR as reference value, the values for ILOC and
 COM(O) both show significance, but it should be kept in mind that they
 are practically identical. The general effect of `POSITION == OBJ > PP`
-is 3.036. The effects for COM(O) and ILOC in `POSITION == PP > OBJ` are
-0.409, and 0.41, respectively.
+is 3.31. The effects for COM(O) and ILOC in `POSITION == PP > OBJ` are
+0.343, and 0.311, respectively.
 
 #### Model predictions (without interaction)
 
@@ -206,29 +225,29 @@ summary(exp_anaphoricity_ls.clmm2)
     ## data:    exp_anaphoricity_ls.test.data
     ## 
     ##  link  threshold nobs logLik   AIC     niter      max.grad cond.H 
-    ##  logit flexible  1836 -2125.66 4281.31 1606(8131) 4.43e-03 4.4e+02
+    ##  logit flexible  1836 -2125.66 4281.31 1525(7726) 6.13e-03 4.4e+02
     ## 
     ## Random effects:
     ##  Groups   Name           Variance Std.Dev. Corr   
-    ##  subjects (Intercept)    1.7637   1.3280          
-    ##           POSITIONOBJ>PP 0.5289   0.7273   -0.243 
-    ##  items    (Intercept)    0.4966   0.7047          
-    ##           POSITIONOBJ>PP 0.1616   0.4020   -0.252 
+    ##  subjects (Intercept)    1.7637   1.3281          
+    ##           POSITIONOBJ>PP 0.5289   0.7272   -0.243 
+    ##  items    (Intercept)    0.4965   0.7047          
+    ##           POSITIONOBJ>PP 0.1615   0.4019   -0.252 
     ## Number of groups:  subjects 51,  items 36 
     ## 
     ## Coefficients:
     ##                                     Estimate Std. Error z value Pr(>|z|)    
     ## ADVERBIAL_TYPECOM(O)                 -1.1402     0.3304  -3.451 0.000558 ***
-    ## ADVERBIAL_TYPEILOC                   -1.0680     0.3292  -3.244 0.001178 ** 
+    ## ADVERBIAL_TYPEILOC                   -1.0680     0.3292  -3.244 0.001177 ** 
     ## POSITIONOBJ>PP                        0.8018     0.2270   3.532 0.000412 ***
-    ## ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP   0.5303     0.2820   1.880 0.060064 .  
-    ## ADVERBIAL_TYPEILOC:POSITIONOBJ>PP     0.3832     0.2819   1.359 0.174002    
+    ## ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP   0.5303     0.2820   1.880 0.060048 .  
+    ## ADVERBIAL_TYPEILOC:POSITIONOBJ>PP     0.3833     0.2819   1.360 0.173968    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Threshold coefficients:
     ##     Estimate Std. Error z value
-    ## 1|2  -4.4314     0.3299 -13.431
+    ## 1|2  -4.4315     0.3299 -13.431
     ## 2|3  -2.0670     0.3044  -6.790
     ## 3|4  -1.4146     0.3021  -4.682
     ## 4|5   1.5583     0.3028   5.147
@@ -244,19 +263,21 @@ show(comp)
 
     ## Likelihood ratio tests of cumulative link models:
     ##  
-    ##                           formula:                                                                                   
-    ## exp_anaphoricity_ls.clmm  FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (1 + POSITION | subjects) + (1 + POSITION | items)
-    ## exp_anaphoricity_ls.clmm2 FCT_ANSWER ~ ADVERBIAL_TYPE * POSITION + (1 + POSITION | subjects) + (1 + POSITION | items)
+    ##                           formula:                                                                                                                     
+    ## exp_anaphoricity_ls.clmm2 FCT_ANSWER ~ ADVERBIAL_TYPE * POSITION + (1 + POSITION | subjects) + (1 + POSITION | items)                                  
+    ## exp_anaphoricity_ls.clmm  FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + ADVERBIAL_TYPE * POSITION | items)
     ##                           link: threshold:
-    ## exp_anaphoricity_ls.clmm  logit flexible  
     ## exp_anaphoricity_ls.clmm2 logit flexible  
+    ## exp_anaphoricity_ls.clmm  logit flexible  
     ## 
-    ##                           no.par    AIC  logLik LR.stat df Pr(>Chisq)
-    ## exp_anaphoricity_ls.clmm      13 4280.9 -2127.4                      
-    ## exp_anaphoricity_ls.clmm2     15 4281.3 -2125.7  3.5632  2     0.1684
+    ##                           no.par    AIC  logLik LR.stat df Pr(>Chisq)  
+    ## exp_anaphoricity_ls.clmm2     15 4281.3 -2125.7                        
+    ## exp_anaphoricity_ls.clmm      49 4298.4 -2100.2  50.875 34     0.0315 *
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Analysis of deviance reveals that the model with interaction does not
-significantly reduce the deviance, but the value of 0.168 is of course
+significantly reduce the deviance, but the value of 0.031 is of course
 pretty close to the famous threshold of P = 0.05
 
 #### Test items in disfavored positions with high ratings
