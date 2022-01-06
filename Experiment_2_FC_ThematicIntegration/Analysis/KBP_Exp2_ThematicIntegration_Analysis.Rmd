@@ -147,4 +147,55 @@ ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) +
   labs(x = "Adverbial Types", y = "Pr(PP>OBJ)")
 ```
 
+#### Variance-Covariance Matrix for random effects
+```{r}
+
+ranef.df <- data.frame(ranef(exp_int_agentivity.fc.glmm)$subjects)
+ranef.df$participants <- rownames(ranef.df)
+colnames(ranef.df)[1:4] <- c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S")
+
+ranef.df <- ranef.df %>%
+  mutate(INSTR = INSTR + exp_int_agentivity.fc.glmm@beta[1]) %>%
+  mutate(COM_S = COM_S + exp_int_agentivity.fc.glmm@beta[2]) %>%
+  mutate(INT_YES_INSTR = INT_YES_INSTR + exp_int_agentivity.fc.glmm@beta[3]) %>%
+  mutate(INT_YES_COM_S = INT_YES_COM_S + exp_int_agentivity.fc.glmm@beta[4]) %>%
+  arrange(INT_YES_COM_S)
+
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE)
+
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INSTR)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE)
+
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = COM_S)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE)
+
+
+library(MASS)
+
+fc_means <- c(-0.6312, 0.4088, -0.6287, 1.6498)
+
+fc_cov <- matrix(
+  c(1.2924^2, 1.2924*1.1664*0.93, 1.2924*1.0734*-0.75, 1.2924*0.4851*0.55,
+    1.1664*1.2924*0.93, 1.1664^2, 1.1664*1.0734*-0.75, 1.1664*0.4851*0.57,
+    1.0734*1.2934*-0.75, 1.0734*1.1664*-0.75, 1.0734^2, 1.0734*0.4851*-0.97,
+    0.4851*1.2924*0.55, 0.4851*1.1664*0.57, 0.4851*1.0734*-0.97, 0.4851^2), 
+  4, byrow = TRUE)
+
+fc_cov_mx <- corpcor::make.positive.definite(fc_cov, tol=1e-3)
+
+fc_vcov_mx <- as.data.frame(mvrnorm(24, fc_means, fc_cov_mx))
+MVN::mvn(fc_vcov_mx, mvnTest = "energy", univariatePlot = "scatter")
+
+corrplot::corrplot(cor(fc_vcov_mx), 
+         method="ellipse",
+         tl.pos="n",
+         title="Matrix Correlations")
+
+plot(fc_vcov_mx)
+```
+
 

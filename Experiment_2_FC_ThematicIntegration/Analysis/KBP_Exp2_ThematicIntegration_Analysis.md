@@ -253,3 +253,109 @@ ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) +
 ```
 
 ![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/Model%20predictions-1.png)<!-- -->
+
+#### Variance-Covariance Matrix for random effects
+
+``` r
+ranef.df <- data.frame(ranef(exp_int_agentivity.fc.glmm)$subjects)
+ranef.df$participants <- rownames(ranef.df)
+colnames(ranef.df)[1:4] <- c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S")
+
+ranef.df <- ranef.df %>%
+  mutate(INSTR = INSTR + exp_int_agentivity.fc.glmm@beta[1]) %>%
+  mutate(COM_S = COM_S + exp_int_agentivity.fc.glmm@beta[2]) %>%
+  mutate(INT_YES_INSTR = INT_YES_INSTR + exp_int_agentivity.fc.glmm@beta[3]) %>%
+  mutate(INT_YES_COM_S = INT_YES_COM_S + exp_int_agentivity.fc.glmm@beta[4]) %>%
+  arrange(INT_YES_COM_S)
+
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INSTR)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+
+``` r
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = COM_S)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
+
+``` r
+library(MASS)
+```
+
+    ## 
+    ## Attache Paket: 'MASS'
+
+    ## Das folgende Objekt ist maskiert 'package:dplyr':
+    ## 
+    ##     select
+
+``` r
+fc_means <- c(-0.6312, 0.4088, -0.6287, 1.6498)
+
+fc_cov <- matrix(
+  c(1.2924^2, 1.2924*1.1664*0.93, 1.2924*1.0734*-0.75, 1.2924*0.4851*0.55,
+    1.1664*1.2924*0.93, 1.1664^2, 1.1664*1.0734*-0.75, 1.1664*0.4851*0.57,
+    1.0734*1.2934*-0.75, 1.0734*1.1664*-0.75, 1.0734^2, 1.0734*0.4851*-0.97,
+    0.4851*1.2924*0.55, 0.4851*1.1664*0.57, 0.4851*1.0734*-0.97, 0.4851^2), 
+  4, byrow = TRUE)
+
+fc_cov_mx <- corpcor::make.positive.definite(fc_cov, tol=1e-3)
+
+fc_vcov_mx <- as.data.frame(mvrnorm(24, fc_means, fc_cov_mx))
+MVN::mvn(fc_vcov_mx, mvnTest = "energy", univariatePlot = "scatter")
+```
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-4.png)<!-- -->
+
+    ## $multivariateNormality
+    ##          Test Statistic p value MVN
+    ## 1 E-statistic  1.113712   0.069 YES
+    ## 
+    ## $univariateNormality
+    ##               Test  Variable Statistic   p value Normality
+    ## 1 Anderson-Darling    V1        0.3994    0.3372    YES   
+    ## 2 Anderson-Darling    V2        0.5437    0.1455    YES   
+    ## 3 Anderson-Darling    V3        0.2942    0.5699    YES   
+    ## 4 Anderson-Darling    V4        0.1690    0.9249    YES   
+    ## 
+    ## $Descriptives
+    ##     n       Mean   Std.Dev     Median        Min       Max       25th
+    ## V1 24 -0.8529331 0.9225975 -1.0317574 -2.3018257 1.1996377 -1.6122824
+    ## V2 24  0.0602455 0.8248165 -0.0457001 -1.1484306 2.2741302 -0.3459879
+    ## V3 24 -0.3737576 0.7386144 -0.3045579 -2.1894353 0.6619276 -0.7505272
+    ## V4 24  1.5352240 0.3515358  1.5219641  0.8797645 2.1852984  1.2818639
+    ##          75th        Skew   Kurtosis
+    ## V1 -0.2402876  0.51565381 -0.6874810
+    ## V2  0.3716954  0.87540455  0.5018413
+    ## V3  0.2373874 -0.51459887 -0.4784377
+    ## V4  1.7896622  0.08845358 -0.9467759
+
+``` r
+corrplot::corrplot(cor(fc_vcov_mx), 
+         method="ellipse",
+         tl.pos="n",
+         title="Matrix Correlations")
+
+plot(fc_vcov_mx)
+```
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-5.png)<!-- -->![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-6.png)<!-- -->
