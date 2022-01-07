@@ -190,11 +190,6 @@ fc_cov_mx <- corpcor::make.positive.definite(fc_cov, tol=1e-3)
 fc_vcov_mx <- as.data.frame(mvrnorm(24, fc_means, fc_cov_mx))
 MVN::mvn(fc_vcov_mx, mvnTest = "energy", univariatePlot = "scatter")
 
-corrplot::corrplot(cor(fc_vcov_mx), 
-         method="ellipse",
-         tl.pos="n",
-         title="Matrix Correlations")
-
 plot(fc_vcov_mx)
 ```
 

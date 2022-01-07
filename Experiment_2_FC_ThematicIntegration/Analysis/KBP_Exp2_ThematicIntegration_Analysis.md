@@ -324,38 +324,31 @@ fc_vcov_mx <- as.data.frame(mvrnorm(24, fc_means, fc_cov_mx))
 MVN::mvn(fc_vcov_mx, mvnTest = "energy", univariatePlot = "scatter")
 ```
 
-![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-4.png)<!-- -->
-
     ## $multivariateNormality
     ##          Test Statistic p value MVN
-    ## 1 E-statistic  1.113712   0.069 YES
+    ## 1 E-statistic  0.860808   0.924 YES
     ## 
     ## $univariateNormality
     ##               Test  Variable Statistic   p value Normality
-    ## 1 Anderson-Darling    V1        0.3994    0.3372    YES   
-    ## 2 Anderson-Darling    V2        0.5437    0.1455    YES   
-    ## 3 Anderson-Darling    V3        0.2942    0.5699    YES   
-    ## 4 Anderson-Darling    V4        0.1690    0.9249    YES   
+    ## 1 Anderson-Darling    V1        0.3780    0.3798    YES   
+    ## 2 Anderson-Darling    V2        0.3100    0.5309    YES   
+    ## 3 Anderson-Darling    V3        0.3433    0.4597    YES   
+    ## 4 Anderson-Darling    V4        0.4130    0.3124    YES   
     ## 
     ## $Descriptives
-    ##     n       Mean   Std.Dev     Median        Min       Max       25th
-    ## V1 24 -0.8529331 0.9225975 -1.0317574 -2.3018257 1.1996377 -1.6122824
-    ## V2 24  0.0602455 0.8248165 -0.0457001 -1.1484306 2.2741302 -0.3459879
-    ## V3 24 -0.3737576 0.7386144 -0.3045579 -2.1894353 0.6619276 -0.7505272
-    ## V4 24  1.5352240 0.3515358  1.5219641  0.8797645 2.1852984  1.2818639
-    ##          75th        Skew   Kurtosis
-    ## V1 -0.2402876  0.51565381 -0.6874810
-    ## V2  0.3716954  0.87540455  0.5018413
-    ## V3  0.2373874 -0.51459887 -0.4784377
-    ## V4  1.7896622  0.08845358 -0.9467759
+    ##     n       Mean   Std.Dev     Median        Min      Max      25th       75th
+    ## V1 24 -0.6767106 1.3080930 -0.6474070 -2.7683286 2.053551 -1.594883 -0.1567444
+    ## V2 24  0.4273237 1.0786495  0.5787048 -1.4241084 2.843534 -0.406330  0.9747577
+    ## V3 24 -0.5234860 1.0075255 -0.4727086 -2.6311245 1.195255 -1.324007  0.2934093
+    ## V4 24  1.5813462 0.4276905  1.4727038  0.7971355 2.358258  1.357116  1.9192006
+    ##           Skew   Kurtosis
+    ## V1  0.42992671 -0.4610388
+    ## V2  0.44000674 -0.2886594
+    ## V3 -0.30723494 -0.9680838
+    ## V4  0.05642269 -0.8211945
 
 ``` r
-corrplot::corrplot(cor(fc_vcov_mx), 
-         method="ellipse",
-         tl.pos="n",
-         title="Matrix Correlations")
-
 plot(fc_vcov_mx)
 ```
 
-![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-5.png)<!-- -->![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-6.png)<!-- -->
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-4.png)<!-- -->
