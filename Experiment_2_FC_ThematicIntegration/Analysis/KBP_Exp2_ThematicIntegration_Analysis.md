@@ -270,10 +270,10 @@ ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) +
 ```
 
 ![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/Model%20predictions-1.png)<!-- -->
-<<<<<<< Updated upstream
-=======
 
-#### Plotting correlations for random effects
+\<\<\<\<\<\<\< Updated upstream
+
+======= #### Plotting correlations for random effects
 
 In the following, we plot the correlations between random effects for
 `INTEGRATION == "no"` and `INTEGRATION == "yes"`, as individual odds
@@ -314,4 +314,19 @@ ggplot(ranef.df, aes(x = COM_S, y = INSTR)) +
 We notice that not only do the correlations between the random effects
 for `ADVERBIAL_TYPE` differ, but also that the by-subject variability
 for `COM(S)` given `INTEGRATION == "yes"` is much smaller.
->>>>>>> Stashed changes
+\>\>\>\>\>\>\> Stashed changes
+
+``` r
+tau.vc <- data.frame(VarCorr(exp_int_agentivity.fc.glmm))$vcov
+tau.vc
+```
+
+    ##  [1]  1.6702341  1.3605680  1.1521465  0.2353234  1.4019109 -1.0375665
+    ##  [7]  0.3460316 -0.9373107  0.3220530 -0.5029620
+
+``` r
+taus <- matrix(c(tau.vc[1], tau.vc[5], tau.vc[6], tau.vc[7],
+                 tau.vc[5], tau.vc[2], tau.vc[8], tau.vc[9],
+                 tau.vc[6], tau.vc[8], tau.vc[3], tau.vc[10],
+                 tau.vc[7], tau.vc[9], tau.vc[10], tau.vc[4]), byrow = TRUE, 4, 4)
+```
