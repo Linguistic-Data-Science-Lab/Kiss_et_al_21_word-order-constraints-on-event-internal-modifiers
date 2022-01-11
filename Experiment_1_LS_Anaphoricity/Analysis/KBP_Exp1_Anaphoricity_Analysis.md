@@ -13,10 +13,10 @@ show(version)
 ```
 
     ##                _                           
-    ## platform       x86_64-w64-mingw32          
+    ## platform       x86_64-apple-darwin17.0     
     ## arch           x86_64                      
-    ## os             mingw32                     
-    ## system         x86_64, mingw32             
+    ## os             darwin17.0                  
+    ## system         x86_64, darwin17.0          
     ## status                                     
     ## major          4                           
     ## minor          1.2                         
@@ -71,7 +71,7 @@ exp_anaphoricity_ls.dist.summary %>% filter(Freq < 18)
     ## <0 Zeilen> (oder row.names mit Länge 0)
 
 Each participant has seen 18 test items per condition, since no
-participant has seen less than 18 test items per condition (8-&gt;).
+participant has seen less than 18 test items per condition (8->).
 
 ``` r
 exp_anaphoricity_ls.test.summary <- 
@@ -113,19 +113,19 @@ summary(exp_anaphoricity_ls.clmm)
     ## data:    exp_anaphoricity_ls.test.data
     ## 
     ##  link  threshold nobs logLik   AIC     niter      max.grad cond.H 
-    ##  logit flexible  1836 -2127.44 4280.88 1213(6227) 5.63e-03 4.0e+02
+    ##  logit flexible  1836 -2127.44 4280.88 1210(6212) 4.77e-03 4.0e+02
     ## 
     ## Random effects:
     ##  Groups   Name           Variance Std.Dev. Corr   
     ##  subjects (Intercept)    1.7594   1.3264          
     ##           POSITIONOBJ>PP 0.5281   0.7267   -0.237 
-    ##  items    (Intercept)    0.5085   0.7131          
+    ##  items    (Intercept)    0.5084   0.7131          
     ##           POSITIONOBJ>PP 0.2134   0.4619   -0.282 
     ## Number of groups:  subjects 51,  items 36 
     ## 
     ## Coefficients:
     ##                      Estimate Std. Error z value Pr(>|z|)    
-    ## ADVERBIAL_TYPECOM(O)  -0.8945     0.3184  -2.810  0.00496 ** 
+    ## ADVERBIAL_TYPECOM(O)  -0.8945     0.3183  -2.810  0.00496 ** 
     ## ADVERBIAL_TYPEILOC    -0.8909     0.3115  -2.860  0.00424 ** 
     ## POSITIONOBJ>PP         1.1104     0.1612   6.887 5.69e-12 ***
     ## ---
@@ -134,7 +134,7 @@ summary(exp_anaphoricity_ls.clmm)
     ## Threshold coefficients:
     ##     Estimate Std. Error z value
     ## 1|2  -4.2844     0.3232 -13.256
-    ## 2|3  -1.9263     0.3004  -6.412
+    ## 2|3  -1.9263     0.3004  -6.413
     ## 3|4  -1.2750     0.2985  -4.271
     ## 4|5   1.7009     0.2988   5.693
 
@@ -206,29 +206,29 @@ summary(exp_anaphoricity_ls.clmm2)
     ## data:    exp_anaphoricity_ls.test.data
     ## 
     ##  link  threshold nobs logLik   AIC     niter      max.grad cond.H 
-    ##  logit flexible  1836 -2125.66 4281.31 1606(8131) 4.43e-03 4.4e+02
+    ##  logit flexible  1836 -2125.66 4281.31 1525(7726) 6.13e-03 4.4e+02
     ## 
     ## Random effects:
     ##  Groups   Name           Variance Std.Dev. Corr   
-    ##  subjects (Intercept)    1.7637   1.3280          
-    ##           POSITIONOBJ>PP 0.5289   0.7273   -0.243 
-    ##  items    (Intercept)    0.4966   0.7047          
-    ##           POSITIONOBJ>PP 0.1616   0.4020   -0.252 
+    ##  subjects (Intercept)    1.7637   1.3281          
+    ##           POSITIONOBJ>PP 0.5289   0.7272   -0.243 
+    ##  items    (Intercept)    0.4965   0.7047          
+    ##           POSITIONOBJ>PP 0.1615   0.4019   -0.252 
     ## Number of groups:  subjects 51,  items 36 
     ## 
     ## Coefficients:
     ##                                     Estimate Std. Error z value Pr(>|z|)    
     ## ADVERBIAL_TYPECOM(O)                 -1.1402     0.3304  -3.451 0.000558 ***
-    ## ADVERBIAL_TYPEILOC                   -1.0680     0.3292  -3.244 0.001178 ** 
+    ## ADVERBIAL_TYPEILOC                   -1.0680     0.3292  -3.244 0.001177 ** 
     ## POSITIONOBJ>PP                        0.8018     0.2270   3.532 0.000412 ***
-    ## ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP   0.5303     0.2820   1.880 0.060064 .  
-    ## ADVERBIAL_TYPEILOC:POSITIONOBJ>PP     0.3832     0.2819   1.359 0.174002    
+    ## ADVERBIAL_TYPECOM(O):POSITIONOBJ>PP   0.5303     0.2820   1.880 0.060048 .  
+    ## ADVERBIAL_TYPEILOC:POSITIONOBJ>PP     0.3833     0.2819   1.360 0.173968    
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Threshold coefficients:
     ##     Estimate Std. Error z value
-    ## 1|2  -4.4314     0.3299 -13.431
+    ## 1|2  -4.4315     0.3299 -13.431
     ## 2|3  -2.0670     0.3044  -6.790
     ## 3|4  -1.4146     0.3021  -4.682
     ## 4|5   1.5583     0.3028   5.147
