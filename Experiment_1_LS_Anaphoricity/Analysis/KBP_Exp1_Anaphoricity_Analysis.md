@@ -206,13 +206,19 @@ show(comp)
 
     ## Likelihood ratio tests of cumulative link models:
     ##  
-    ##                           formula:                                                                                                     link: threshold:
-    ## exp_anaphoricity_ls.clmm  FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + POSITION | items) logit flexible  
-    ## exp_anaphoricity_ls.clmm2 FCT_ANSWER ~ ADVERBIAL_TYPE * POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + POSITION | items) logit flexible  
+    ##                           formula:                                                                                                    
+    ## exp_anaphoricity_ls.clmm  FCT_ANSWER ~ ADVERBIAL_TYPE + POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + POSITION | items)
+    ## exp_anaphoricity_ls.clmm2 FCT_ANSWER ~ ADVERBIAL_TYPE * POSITION + (0 + ADVERBIAL_TYPE * POSITION | subjects) + (0 + POSITION | items)
+    ##                           link: threshold:
+    ## exp_anaphoricity_ls.clmm  logit flexible  
+    ## exp_anaphoricity_ls.clmm2 logit flexible  
     ## 
     ##                           no.par    AIC  logLik LR.stat df Pr(>Chisq)
     ## exp_anaphoricity_ls.clmm      31 4277.3 -2107.6                      
     ## exp_anaphoricity_ls.clmm2     33 4278.3 -2106.1  3.0122  2     0.2218
+
+The random structure of the model reveals that the by-subject
+variability is reduced under `OBJ > PP`.
 
 #### Effects in the model w/o interaction
 
@@ -301,3 +307,34 @@ read.csv("../Data/stimuli_test_basic.csv", fileEncoding = "UTF-8") %>%
 | t22      | Kai hat erzählt, dass ein Händler zusammen mit einem Gemälde was verkauft hat. Was es war, weiß ich aber nicht.               |
 | t23      | Eva hat erzählt, dass ein Kellner zusammen mit einer Süßspeise was serviert hat. Was es war, weiß ich aber nicht.             |
 | t24      | Ich habe gehört, dass ein Hobbykoch zusammen mit einer Knoblauchzehe was püriert hat. Was es war, weiß ich aber nicht.        |
+
+#### Proportion of highly ranked ratings for INSTR
+
+The idea is to take the proportion of ratings for INSTR in (4, 5) for
+both serializations as a base line for a prediction in the FC model.
+
+``` r
+prop_45 <- subset(exp_anaphoricity_ls.test.data, ADVERBIAL_TYPE == "INSTR" & ANSWER %in% c(4, 5))
+prop_45.sum <- prop_45 %>%
+  group_by(ADVERBIAL_TYPE, POSITION, ANSWER) %>%
+  summarise(count = n()) 
+```
+
+    ## `summarise()` has grouped output by 'ADVERBIAL_TYPE', 'POSITION'. You can override using the `.groups` argument.
+
+``` r
+prop_45.sum
+```
+
+    ## # A tibble: 4 × 4
+    ## # Groups:   ADVERBIAL_TYPE, POSITION [2]
+    ##   ADVERBIAL_TYPE POSITION ANSWER count
+    ##   <fct>          <fct>     <int> <int>
+    ## 1 INSTR          PP>OBJ        4   149
+    ## 2 INSTR          PP>OBJ        5    74
+    ## 3 INSTR          OBJ>PP        4   149
+    ## 4 INSTR          OBJ>PP        5   108
+
+It seems as if ratings == 4 are equal, so we can just use ratings == 5,
+which yields (74/(108+74)). Fed into the quantile function of the
+logistic distribution, it yields -0.3780661. \`

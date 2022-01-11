@@ -185,3 +185,19 @@ read.csv("../Data/stimuli_test_basic.csv", fileEncoding = "UTF-8") %>%
   select(ENCODING, ITEM) %>% knitr::kable()
 ```
 
+#### Proportion of highly ranked ratings for INSTR
+
+The idea is to take the proportion of ratings for INSTR in (4, 5) for both serializations as a base line for a prediction in the FC model. 
+
+
+```{r proportion of predictions}
+
+prop_45 <- subset(exp_anaphoricity_ls.test.data, ADVERBIAL_TYPE == "INSTR" & ANSWER %in% c(4, 5))
+prop_45.sum <- prop_45 %>%
+  group_by(ADVERBIAL_TYPE, POSITION, ANSWER) %>%
+  summarise(count = n()) 
+
+prop_45.sum
+```
+
+It seems as if ratings == 4 are equal, so we can just use ratings == 5, which yields (74/(108+74)). Fed into the quantile function of the logistic distribution, it yields `r  qlogis(74/(108+74))`. `
