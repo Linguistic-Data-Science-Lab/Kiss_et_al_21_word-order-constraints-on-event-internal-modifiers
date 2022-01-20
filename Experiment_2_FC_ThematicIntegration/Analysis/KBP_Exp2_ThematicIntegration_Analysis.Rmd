@@ -172,6 +172,23 @@ ranef.df <- ranef.df %>%
   mutate(INT_YES_COM_S = INT_YES_COM_S + exp_int_agentivity.fc.glmm@beta[4]) %>%
   arrange(INT_YES_COM_S)
 
+set.seed(42)
+
+ranef.sub.df <- subset(ranef.df, participants %in% sample(ranef.df$participants, 5))
+
+ranef.sub.df <- 
+  ranef.sub.df %>% 
+  gather(condition, pred, INSTR:INT_YES_COM_S)
+
+ranef.sub.df$condition <- 
+  factor(ranef.sub.df$condition, levels = c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S"))
+
+str(ranef.sub.df)
+
+ggplot(ranef.sub.df, aes(x = condition)) + 
+  geom_line(aes(y = pred, group = participants, color = participants))
+
+
 ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
   geom_point(aes(color = participants), show.legend = FALSE) +
   labs(x = "PP > OBJ given COM(S)", 
@@ -200,3 +217,4 @@ taus <- matrix(c(tau.vc[1], tau.vc[5], tau.vc[6], tau.vc[7],
                  tau.vc[7], tau.vc[9], tau.vc[10], tau.vc[4]), byrow = TRUE, 4, 4)
 
 ```
+

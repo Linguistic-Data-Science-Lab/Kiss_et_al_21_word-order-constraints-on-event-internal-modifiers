@@ -292,6 +292,33 @@ ranef.df <- ranef.df %>%
   mutate(INT_YES_COM_S = INT_YES_COM_S + exp_int_agentivity.fc.glmm@beta[4]) %>%
   arrange(INT_YES_COM_S)
 
+set.seed(42)
+
+ranef.sub.df <- subset(ranef.df, participants %in% sample(ranef.df$participants, 5))
+
+ranef.sub.df <- 
+  ranef.sub.df %>% 
+  gather(condition, pred, INSTR:INT_YES_COM_S)
+
+ranef.sub.df$condition <- 
+  factor(ranef.sub.df$condition, levels = c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S"))
+
+str(ranef.sub.df)
+```
+
+    ## 'data.frame':    20 obs. of  3 variables:
+    ##  $ participants: chr  "238" "244" "243" "271" ...
+    ##  $ condition   : Factor w/ 4 levels "INSTR","COM_S",..: 1 1 1 1 1 2 2 2 2 2 ...
+    ##  $ pred        : num  -1.08 -1.88 -1.85 -1.45 -1.37 ...
+
+``` r
+ggplot(ranef.sub.df, aes(x = condition)) + 
+  geom_line(aes(y = pred, group = participants, color = participants))
+```
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
 ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
   geom_point(aes(color = participants), show.legend = FALSE) +
   labs(x = "PP > OBJ given COM(S)", 
@@ -299,7 +326,7 @@ ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
        subtitle = "Negative correlation of random slopes for ADVERBIAL_TYPE given INTEGRATION == yes")
 ```
 
-![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
 ``` r
 ggplot(ranef.df, aes(x = COM_S, y = INSTR)) +
@@ -309,7 +336,7 @@ ggplot(ranef.df, aes(x = COM_S, y = INSTR)) +
        subtitle = "Positive correlation of random slopes for ADVERBIAL_TYPE given INTEGRATION == no")
 ```
 
-![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
 
 We notice that not only do the correlations between the random effects
 for `ADVERBIAL_TYPE` differ, but also that the by-subject variability
