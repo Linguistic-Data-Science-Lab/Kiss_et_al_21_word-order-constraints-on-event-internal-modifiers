@@ -303,15 +303,6 @@ ranef.sub.df <-
 ranef.sub.df$condition <- 
   factor(ranef.sub.df$condition, levels = c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S"))
 
-str(ranef.sub.df)
-```
-
-    ## 'data.frame':    20 obs. of  3 variables:
-    ##  $ participants: chr  "238" "244" "243" "271" ...
-    ##  $ condition   : Factor w/ 4 levels "INSTR","COM_S",..: 1 1 1 1 1 2 2 2 2 2 ...
-    ##  $ pred        : num  -1.08 -1.88 -1.85 -1.45 -1.37 ...
-
-``` r
 ggplot(ranef.sub.df, aes(x = condition)) + 
   geom_line(aes(y = pred, group = participants, color = participants))
 ```

@@ -183,8 +183,6 @@ ranef.sub.df <-
 ranef.sub.df$condition <- 
   factor(ranef.sub.df$condition, levels = c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S"))
 
-str(ranef.sub.df)
-
 ggplot(ranef.sub.df, aes(x = condition)) + 
   geom_line(aes(y = pred, group = participants, color = participants))
 
