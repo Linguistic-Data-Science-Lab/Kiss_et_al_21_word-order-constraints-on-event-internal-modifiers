@@ -219,9 +219,26 @@ summary(exp_int_agentivity.fc.glmm)
     ## INTEGRATION           -0.672  0.412                     
     ## ADVERBIAL_TYPECOM(S):  0.399 -0.627               -0.729
 
-It is an interesting fact that the by-subject variation for
-`COM(S):INTEGRATION yes` is much lower than for the other conditions,
-which appears to confirm the preference for PP \> OBJ in this condition.
+If we compare the two alternatives for INTEGRATION, we notice two
+things:
+
+-   The by-subject variation for `INTEGRATION == "no"` is similar for
+    both `ADVERBIAL_TYPEs`, and there is a positive correlation between
+    the random effects for `INSTR` (random intecept) and `COM(S)`
+    (random slope), which means that subjects may have individual
+    preferences, but these are the same for both `ADVERBIAL_TYPEs`.
+-   In contrast, the by-subject variation for `INTEGRATION == "yes"`
+    differs sharply: For `INSTR` it is comparable with the values for
+    `INTEGRATION == "no"`, but for `COM(S)` it is much smaller. In
+    addition, there is a negative correlation between the random slopes
+    for `ADVERBIAL_TYPE`, so that lower probabilities for chosing
+    `PP > OBJ` given `INSTR` correspond to higher probabilities for
+    chosing `PP > OBJ` given `COM(S)`.
+
+The model of the experiment thus suggests that there is considerable
+variance among speakers in case of instrumentals or no thematic
+integration, and much less variance in case of thematic integration with
+comitatives. (The correlations are illustrated below.)
 
 #### Model predictions
 
@@ -253,3 +270,81 @@ ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) +
 ```
 
 ![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/Model%20predictions-1.png)<!-- -->
+
+\<\<\<\<\<\<\< Updated upstream
+
+======= #### Plotting correlations for random effects
+
+In the following, we plot the correlations between random effects for
+`INTEGRATION == "no"` and `INTEGRATION == "yes"`, as individual odds
+ratios. (I am not sure whether this is actually best practice, but it is
+illustrative.)
+
+``` r
+ranef.df <- data.frame(ranef(exp_int_agentivity.fc.glmm)$subjects)
+ranef.df$participants <- rownames(ranef.df)
+colnames(ranef.df)[1:4] <- c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S")
+
+ranef.df <- ranef.df %>%
+  mutate(INSTR = INSTR + exp_int_agentivity.fc.glmm@beta[1]) %>%
+  mutate(COM_S = COM_S + exp_int_agentivity.fc.glmm@beta[2]) %>%
+  mutate(INT_YES_INSTR = INT_YES_INSTR + exp_int_agentivity.fc.glmm@beta[3]) %>%
+  mutate(INT_YES_COM_S = INT_YES_COM_S + exp_int_agentivity.fc.glmm@beta[4]) %>%
+  arrange(INT_YES_COM_S)
+
+set.seed(42)
+
+ranef.sub.df <- subset(ranef.df, participants %in% sample(ranef.df$participants, 5))
+
+ranef.sub.df <- 
+  ranef.sub.df %>% 
+  gather(condition, pred, INSTR:INT_YES_COM_S)
+
+ranef.sub.df$condition <- 
+  factor(ranef.sub.df$condition, levels = c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S"))
+
+ggplot(ranef.sub.df, aes(x = condition)) + 
+  geom_line(aes(y = pred, group = participants, color = participants))
+```
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
+ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  labs(x = "PP > OBJ given COM(S)", 
+       y = "PP > OBJ given INSTR", 
+       subtitle = "Negative correlation of random slopes for ADVERBIAL_TYPE given INTEGRATION == yes")
+```
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+
+``` r
+ggplot(ranef.df, aes(x = COM_S, y = INSTR)) +
+  geom_point(aes(color = participants), show.legend = FALSE) +
+  labs(x = "PP > OBJ given COM(S)", 
+       y = "PP > OBJ given INSTR", 
+       subtitle = "Positive correlation of random slopes for ADVERBIAL_TYPE given INTEGRATION == no")
+```
+
+![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
+
+We notice that not only do the correlations between the random effects
+for `ADVERBIAL_TYPE` differ, but also that the by-subject variability
+for `COM(S)` given `INTEGRATION == "yes"` is much smaller.
+\>\>\>\>\>\>\> Stashed changes
+
+``` r
+tau.vc <- data.frame(VarCorr(exp_int_agentivity.fc.glmm))$vcov
+tau.vc
+```
+
+    ##  [1]  1.6702341  1.3605680  1.1521465  0.2353234  1.4019109 -1.0375665
+    ##  [7]  0.3460316 -0.9373107  0.3220530 -0.5029620
+
+``` r
+taus <- matrix(c(tau.vc[1], tau.vc[5], tau.vc[6], tau.vc[7],
+                 tau.vc[5], tau.vc[2], tau.vc[8], tau.vc[9],
+                 tau.vc[6], tau.vc[8], tau.vc[3], tau.vc[10],
+                 tau.vc[7], tau.vc[9], tau.vc[10], tau.vc[4]), byrow = TRUE, 4, 4)
+```
