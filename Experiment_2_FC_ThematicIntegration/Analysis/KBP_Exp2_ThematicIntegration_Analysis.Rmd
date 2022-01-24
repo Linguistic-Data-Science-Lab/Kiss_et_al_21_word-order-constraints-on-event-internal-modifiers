@@ -1,7 +1,7 @@
 ---
 title: "Word order constraints on event-internal modifiers - Experiment 2: Forced Choice study on Thematic Integration"
 author: "Tibor Kiss"
-date: "10.11.2021"
+date: "10.11.2021/24.01.2022"
 output:
   github_document:
     keep_html: TRUE
@@ -152,14 +152,12 @@ ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) +
   labs(x = "Adverbial Types", y = "Pr(PP>OBJ)")
 ```
 
-<<<<<<< Updated upstream
 
-=======
 #### Plotting correlations for random effects
 
-In the following, we plot the correlations between random effects for `INTEGRATION == "no"` and `INTEGRATION == "yes"`, as individual odds ratios. (I am not sure whether this is actually best practice, but it is illustrative.)
+In the following, we will plot predictions including random effects for five arbitrary participants (just as illustration), and correlations between random effects for `INTEGRATION == "no"` and `INTEGRATION == "yes"`, as individual odds ratios. (I am not sure whether the latter is common practice, but it is illustrative.)
 
-```{r}
+```{r plots for random structure (participants)}
 
 ranef.df <- data.frame(ranef(exp_int_agentivity.fc.glmm)$subjects)
 ranef.df$participants <- rownames(ranef.df)
@@ -184,7 +182,16 @@ ranef.sub.df$condition <-
   factor(ranef.sub.df$condition, levels = c("INSTR", "COM_S", "INT_YES_INSTR", "INT_YES_COM_S"))
 
 ggplot(ranef.sub.df, aes(x = condition)) + 
-  geom_line(aes(y = pred, group = participants, color = participants))
+  geom_line(aes(y = pred, group = participants, color = participants), show.legend = FALSE) +
+  scale_x_discrete(labels = c("Instrumental/no int.", "Comitative/no int.", 
+                              "Instrumental/Int.", "Comitative/Int.")) +
+  labs(x = "Linear predictions for five arbitrary participants", y = "")
+
+```
+
+The figure shows nicely the spread between participants in the different condition, but also the comparatively uniform behavior w.r.t. the last condition. 
+
+```{r plots of correlations}
 
 
 ggplot(ranef.df, aes(x = INT_YES_COM_S, y = INT_YES_INSTR)) +
@@ -202,17 +209,5 @@ ggplot(ranef.df, aes(x = COM_S, y = INSTR)) +
 ```
 
 We notice that not only do the correlations between the random effects for `ADVERBIAL_TYPE` differ, but also that the by-subject variability for `COM(S)` given `INTEGRATION == "yes"` is much smaller. 
->>>>>>> Stashed changes
 
-```{r}
-
-tau.vc <- data.frame(VarCorr(exp_int_agentivity.fc.glmm))$vcov
-tau.vc
-
-taus <- matrix(c(tau.vc[1], tau.vc[5], tau.vc[6], tau.vc[7],
-                 tau.vc[5], tau.vc[2], tau.vc[8], tau.vc[9],
-                 tau.vc[6], tau.vc[8], tau.vc[3], tau.vc[10],
-                 tau.vc[7], tau.vc[9], tau.vc[10], tau.vc[4]), byrow = TRUE, 4, 4)
-
-```
 
