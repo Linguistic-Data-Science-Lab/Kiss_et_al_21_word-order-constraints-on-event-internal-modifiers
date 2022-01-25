@@ -164,6 +164,10 @@ ggplot(exp_anaphoricity_ls.pred.long, aes(x = ANSWER, y = rating)) +
 
 #### Test items in disfavored positions with high ratings 
 
+This relates to the discussion around Example (20) of Chapter 5.1 ("Base positions and scrambling"):
+Looking at object-oriented comitatives realized below the object, we notice that most items have been rated as expected, i.e. receiving many low ratings (e.g. (20a) which corresponds to item t24), whereas others, although being
+structurally identical, received high ratings (e.g. (20b) which corresponds to item t13, see also t20).
+
 ```{r warning=FALSE, message = FALSE}
 
 exp_anaphoricity_ls.rating.summary <- 
