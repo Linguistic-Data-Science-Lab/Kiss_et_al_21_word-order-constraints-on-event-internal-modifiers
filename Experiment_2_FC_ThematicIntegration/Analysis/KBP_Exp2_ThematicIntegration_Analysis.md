@@ -21,20 +21,20 @@ show(version)
 ```
 
     ##                _                           
-    ## platform       x86_64-apple-darwin17.0     
-    ## arch           x86_64                      
-    ## os             darwin17.0                  
-    ## system         x86_64, darwin17.0          
+    ## platform       aarch64-apple-darwin20      
+    ## arch           aarch64                     
+    ## os             darwin20                    
+    ## system         aarch64, darwin20           
     ## status                                     
     ## major          4                           
-    ## minor          1.2                         
-    ## year           2021                        
-    ## month          11                          
-    ## day            01                          
-    ## svn rev        81115                       
+    ## minor          2.1                         
+    ## year           2022                        
+    ## month          06                          
+    ## day            23                          
+    ## svn rev        82513                       
     ## language       R                           
-    ## version.string R version 4.1.2 (2021-11-01)
-    ## nickname       Bird Hippie
+    ## version.string R version 4.2.1 (2022-06-23)
+    ## nickname       Funny-Looking Kid
 
 #### Read in data set
 
@@ -68,7 +68,7 @@ subjects (number of accepted subjects: 33).
 #### Empirical distribution of choices
 
 ``` r
-thematic_int.labels <- c("No Thematic Integration", "Thematic Integration")
+thematic_int.labels <- c("Privative Interpretation", "Affirmative Interpretation")
 names(thematic_int.labels) <- c("no", "yes")
 
 exp_int_agentivity.fc.summary <- 
@@ -82,13 +82,28 @@ ggplot(exp_int_agentivity.fc.summary,
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Choice", y = "Frequency of Choice") + 
   facet_wrap(~INTEGRATION, labeller = labeller(INTEGRATION = thematic_int.labels)) +
-  scale_fill_manual("ADVERBIAL_TYPE", values = c("COM(S)" = "black",
-                                                 "INSTR" = "grey"),
-                    labels = c("comitative (subj.)", "instrumental")) +
-  guides(fill=guide_legend(title="Semantic type\nof adverbial")) 
+  scale_fill_manual(name = "Adverbial Type", values = c("lightgrey", "darkgrey"),
+                    labels = c("comitative", "instrumental")) +
+  theme_bw()
 ```
 
 ![](KBP_Exp2_ThematicIntegration_Analysis_files/figure-gfm/empirical%20distribution-1.png)<!-- -->
+
+``` r
+ggsave("/Users/tibor/Documents/data_dist_fc2.pdf")
+
+exp_int_agentivity.fc.summary.wide <-
+  exp_int_agentivity.fc.summary %>%
+  spread(key = ANSWER, value = count)
+
+exp_int_agentivity.fc.summary.wide
+```
+
+    ##   ADVERBIAL_TYPE INTEGRATION OBJ>PP PP>OBJ
+    ## 1         COM(S)          no    108     90
+    ## 2         COM(S)         yes     65    133
+    ## 3          INSTR          no    122     76
+    ## 4          INSTR         yes    148     50
 
 The graphical representation of the empirical distribution of choices
 suggests an interaction between the main effects, as is witnessed by the
@@ -114,7 +129,7 @@ exp_int_agentivity.fc.glmm <-
         data = exp_int_agentivity.fc.test.data, family = binomial())
 ```
 
-    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.00840603 (tol = 0.002, component 1)
+    ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, : Model failed to converge with max|grad| = 0.0131335 (tol = 0.002, component 1)
 
 ``` r
 options(width = 300)
@@ -131,32 +146,32 @@ summary(exp_int_agentivity.fc.glmm)
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.2514 -0.6507 -0.3624  0.7385  2.5670 
+    ## -2.2503 -0.6507 -0.3624  0.7384  2.5680 
     ## 
     ## Random effects:
     ##  Groups   Name                                Variance Std.Dev. Corr             
-    ##  subjects ADVERBIAL_TYPEINSTR                 1.6633   1.290                     
-    ##           ADVERBIAL_TYPECOM(S)                1.3601   1.166     0.93            
-    ##           INTEGRATIONyes                      1.1456   1.070    -0.75 -0.75      
-    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2314   0.481     0.55  0.57 -0.97
+    ##  subjects ADVERBIAL_TYPEINSTR                 1.6626   1.2894                    
+    ##           ADVERBIAL_TYPECOM(S)                1.3585   1.1655    0.93            
+    ##           INTEGRATIONyes                      1.1448   1.0700   -0.75 -0.75      
+    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2316   0.4812    0.55  0.57 -0.97
     ## Number of obs: 792, groups:  subjects, 33
     ## 
     ## Fixed effects:
     ##                                     Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)                          -0.6305     0.2860  -2.204   0.0275 *  
-    ## ADVERBIAL_TYPECOM(S)                  0.4086     0.2524   1.619   0.1054    
-    ## INTEGRATIONyes                       -0.6296     0.3263  -1.930   0.0537 .  
-    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6502     0.3631   4.545 5.49e-06 ***
+    ## (Intercept)                          -0.6301     0.2860  -2.204   0.0276 *  
+    ## ADVERBIAL_TYPECOM(S)                  0.4078     0.2523   1.616   0.1060    
+    ## INTEGRATIONyes                       -0.6301     0.3262  -1.931   0.0534 .  
+    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6509     0.3631   4.547 5.43e-06 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##                       (Intr) ADVERBIAL_TYPECOM(S) INTEGR
     ## ADVERBIAL_TYPECOM(S)  -0.539                            
-    ## INTEGRATION           -0.672  0.410                     
+    ## INTEGRATION           -0.671  0.411                     
     ## ADVERBIAL_TYPECOM(S):  0.398 -0.626               -0.728
     ## optimizer (Nelder_Mead) convergence code: 0 (OK)
-    ## Model failed to converge with max|grad| = 0.00840603 (tol = 0.002, component 1)
+    ## Model failed to converge with max|grad| = 0.0131335 (tol = 0.002, component 1)
 
 We’ll have to consider possible spurious convergence warnings, and apply
 tests from
@@ -168,7 +183,7 @@ tt <- getME(exp_int_agentivity.fc.glmm,"theta")
 ll <- getME(exp_int_agentivity.fc.glmm,"lower")
 ```
 
-The comparatively high value of 0.004 suggests that singularity is not
+The comparatively high value of 0.003 suggests that singularity is not
 an issue here. Restarting solves the problem here.
 
 ``` r
@@ -194,22 +209,22 @@ summary(exp_int_agentivity.fc.glmm)
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.2511 -0.6509 -0.3624  0.7382  2.5673 
+    ## -2.2511 -0.6510 -0.3624  0.7382  2.5673 
     ## 
     ## Random effects:
     ##  Groups   Name                                Variance Std.Dev. Corr             
-    ##  subjects ADVERBIAL_TYPEINSTR                 1.6702   1.2924                    
-    ##           ADVERBIAL_TYPECOM(S)                1.3606   1.1664    0.93            
-    ##           INTEGRATIONyes                      1.1521   1.0734   -0.75 -0.75      
-    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2353   0.4851    0.55  0.57 -0.97
+    ##  subjects ADVERBIAL_TYPEINSTR                 1.6708   1.2926                    
+    ##           ADVERBIAL_TYPECOM(S)                1.3608   1.1666    0.93            
+    ##           INTEGRATIONyes                      1.1526   1.0736   -0.75 -0.75      
+    ##           ADVERBIAL_TYPECOM(S):INTEGRATIONyes 0.2355   0.4853    0.55  0.57 -0.97
     ## Number of obs: 792, groups:  subjects, 33
     ## 
     ## Fixed effects:
     ##                                     Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)                          -0.6312     0.2865  -2.203   0.0276 *  
-    ## ADVERBIAL_TYPECOM(S)                  0.4088     0.2525   1.619   0.1055    
-    ## INTEGRATIONyes                       -0.6287     0.3266  -1.925   0.0542 .  
-    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6498     0.3632   4.542 5.58e-06 ***
+    ## (Intercept)                          -0.6314     0.2865  -2.204   0.0275 *  
+    ## ADVERBIAL_TYPECOM(S)                  0.4090     0.2526   1.619   0.1053    
+    ## INTEGRATIONyes                       -0.6285     0.3267  -1.924   0.0543 .  
+    ## ADVERBIAL_TYPECOM(S):INTEGRATIONyes   1.6495     0.3633   4.541  5.6e-06 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
@@ -257,10 +272,10 @@ predictions.emm
 ```
 
     ##   ADVERBIAL_TYPE INTEGRATION      prob         SE  df asymp.LCL asymp.UCL
-    ## 1          INSTR          no 0.3472370 0.06492990 Inf 0.2327841 0.4825680
-    ## 2         COM(S)          no 0.4446339 0.06423847 Inf 0.3247015 0.5713830
-    ## 3          INSTR         yes 0.2209868 0.04319224 Inf 0.1478363 0.3168736
-    ## 4         COM(S)         yes 0.6896952 0.04469501 Inf 0.5961326 0.7699473
+    ## 1          INSTR          no 0.3471847 0.06493677 Inf 0.2327252 0.4825351
+    ## 2         COM(S)          no 0.4446236 0.06424254 Inf 0.3246847 0.5713812
+    ## 3          INSTR         yes 0.2209854 0.04319257 Inf 0.1478345 0.3168731
+    ## 4         COM(S)         yes 0.6896791 0.04469603 Inf 0.5961149 0.7699335
 
 ``` r
 ggplot(predictions.emm, aes(x = ADVERBIAL_TYPE, y = prob)) + 

@@ -1,0 +1,105 @@
+---
+title: "KPB_Exp2_ThematicINT_brm"
+output: html_document
+date: "19.08.2022"
+author: "Tibor Kiss"
+---
+
+### Analysis of experimental study on thematic INT based on Bayesian Regression Modelling
+
+This document provides a further analysis for the experimental study on thematic INT used in Kiss, Pieper, Börner (2022), revised version, including the random slopes on the interaction of main effects. Since two of the effects, which were expected to be 0 show (non-significant) values different from 0, it seems worthwhile to investigate a Bayesian appraach.
+
+#### Read in required libraries
+
+```{r libraries, warning=FALSE, message=FALSE}
+library(brms)
+options(mc.cores=parallel::detectCores(logical = TRUE))
+
+library(HDInterval)
+library(tidyverse)
+library(emmeans)
+
+show(version)
+```
+
+#### Read in data set
+
+
+```{r data set, cache = TRUE}
+data <- 
+  read.csv("../Data/ForcedChoice_test.csv", fileEncoding = "UTF-8")
+
+data$ANSWER <- 
+  relevel(factor(data$ANSWER), ref = "OBJ>PP")
+
+data <-
+  data %>%
+  rename(INT = INTEGRATION,
+         ADV = ADVERBIAL_TYPE) %>%
+  mutate(INT = relevel(factor(INT), ref = "yes"),
+         ADV = relevel(factor(ADV), ref = "INSTR"))
+
+## more illustrative variable names
+data$subjects <- factor(data$workerId)
+data$items <- factor(data$ENCODING)
+
+```
+
+#### Empirical distribution of choices
+
+
+```{r empirical distribution, cache = TRUE, warning = FALSE, message = FALSE, fig.width = 8}
+
+thematic_int.labels <- c("No Thematic INT", "Thematic INT")
+names(thematic_int.labels) <- c("no", "yes")
+
+data.sum <- 
+  data %>%
+  group_by(ADV, INT, ANSWER) %>%
+  summarise(count = n()) %>%
+  as.data.frame()
+
+ggplot(data.sum,
+       aes(x = ANSWER, y = count, fill = ADV)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Choice", y = "Frequency of Choice") + 
+  facet_wrap(~INT, labeller = labeller(INT = thematic_int.labels)) +
+  scale_fill_manual("ADV", values = c("COM(S)" = "black",
+                                                 "INSTR" = "grey"),
+                    labels = c("comitative (subj.)", "instrumental")) +
+  guides(fill=guide_legend(title="Semantic type\nof adverbial")) 
+
+```
+
+The graphical representation of the empirical distribution of choices suggests an interaction between the main effects, as is witnessed by the inversion of the distribution of `COM(S)` under `Thematic INT == "yes"`. 
+
+```{r}
+
+options(width = 300)
+
+priors <- c(
+  prior(normal(0, 0.5), coef = ADVCOMS),
+  prior(normal(0, 0.5), coef = INTno),
+  prior(normal(1, 1.1), coef = ADVCOMS:INTno)
+)
+
+model <- brm(ANSWER ~ ADV * INT + (0 + ADV * INT | subjects),
+             family = bernoulli(link = "logit"),
+             prior = priors,
+             data = data,
+             chains = 8,
+             warmup = 1000, iter = 4000,
+             control = list(adapt_delta = 0.99),
+             sample_prior = "yes")
+
+model
+conditional_effects(model)[3]
+mcmc_plot(model, variable = c("b_Intercept", "b_ADVCOMS", "b_INTno", "b_ADVCOMS:INTno"), type = "dens")
+
+h0 <- "exp(ADVCOMS * 0) < exp(ADVCOMS * 1)"
+h1 <- "exp(INTno * 0) < exp(INTno * 1)"
+h1a <- "exp(INTno * 0 + ADVCOMS * 0) = exp(INTno * 1 + ADVCOMS * 0)"
+h2 <- "exp(ADVCOMS * 1 + INTno * 0) = exp(ADVCOMS * 1 + INTno * 1)"
+
+hypothesis(model, c(h0, h1, h1a, h2))
+```

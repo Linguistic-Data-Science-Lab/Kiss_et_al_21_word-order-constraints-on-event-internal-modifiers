@@ -54,7 +54,7 @@ table(exp_int_agentivity.fc.test.data$workerId)
 
 ```{r empirical distribution, cache = TRUE, warning = FALSE, message = FALSE, fig.width = 8}
 
-thematic_int.labels <- c("No Thematic Integration", "Thematic Integration")
+thematic_int.labels <- c("Privative Interpretation", "Affirmative Interpretation")
 names(thematic_int.labels) <- c("no", "yes")
 
 exp_int_agentivity.fc.summary <- 
@@ -68,12 +68,19 @@ ggplot(exp_int_agentivity.fc.summary,
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Choice", y = "Frequency of Choice") + 
   facet_wrap(~INTEGRATION, labeller = labeller(INTEGRATION = thematic_int.labels)) +
-  scale_fill_manual("ADVERBIAL_TYPE", values = c("COM(S)" = "black",
-                                                 "INSTR" = "grey"),
-                    labels = c("comitative (subj.)", "instrumental")) +
-  guides(fill=guide_legend(title="Semantic type\nof adverbial")) 
+  scale_fill_manual(name = "Adverbial Type", values = c("lightgrey", "darkgrey"),
+                    labels = c("comitative", "instrumental")) +
+  theme_bw()
 
+ggsave("/Users/tibor/Documents/data_dist_fc2.pdf")
+
+exp_int_agentivity.fc.summary.wide <-
+  exp_int_agentivity.fc.summary %>%
+  spread(key = ANSWER, value = count)
+
+exp_int_agentivity.fc.summary.wide
 ```
+
 
 The graphical representation of the empirical distribution of choices suggests an interaction between the main effects, as is witnessed by the inversion of the distribution of `COM(S)` under `Thematic Integration == "yes"`. 
 
@@ -81,7 +88,7 @@ The graphical representation of the empirical distribution of choices suggests a
 
 Please notice that the random structure does not assume intercepts, because we want to obtain information on by-subject variance (i.e. workerId) for each condition.
 
-```{r random slope model, cache = TRUE}
+```{r random slope model}
 
 exp_int_agentivity.fc.test.data$INTEGRATION <-
   relevel(exp_int_agentivity.fc.test.data$INTEGRATION, ref = "no")
@@ -100,7 +107,7 @@ summary(exp_int_agentivity.fc.glmm)
 
 We'll have to consider possible spurious convergence warnings, and apply tests from https://rstudio-pubs-static.s3.amazonaws.com/33653_57fc7b8e5d484c909b615d8633c01d51.html, i.e. Ben Bolker's troubleshooting page for spurious convergence errors.
 
-```{r singularity, cache = TRUE}
+```{r singularity}
 
 tt <- getME(exp_int_agentivity.fc.glmm,"theta")
 ll <- getME(exp_int_agentivity.fc.glmm,"lower")
@@ -108,7 +115,7 @@ ll <- getME(exp_int_agentivity.fc.glmm,"lower")
 
 The comparatively high value of `r round(min(tt[ll==0]), 3)` suggests that singularity is not an issue here. Restarting solves the problem here. 
 
-```{r restarting, cache = TRUE}
+```{r restarting}
 ss <- 
   getME(exp_int_agentivity.fc.glmm,c("theta","fixef"))
 exp_int_agentivity.fc.glmm <- 
